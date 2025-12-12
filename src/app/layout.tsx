@@ -4,6 +4,7 @@ import { SidebarProvider, Sidebar, SidebarInset } from '@/components/ui/sidebar'
 import { SidebarNav } from '@/components/layout/sidebar-nav';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/hooks/use-auth';
+import { Chatbot } from '@/components/chatbot/chatbot';
 
 export const metadata: Metadata = {
   title: 'DelaySense: Airline Operations Assistant',
@@ -30,6 +31,7 @@ export default function RootLayout({
             </Sidebar>
             <SidebarInset>{children}</SidebarInset>
           </SidebarProvider>
+          <Chatbot />
           <Toaster />
         </AuthProvider>
       </body>
