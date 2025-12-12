@@ -171,7 +171,7 @@ function PassengerDashboardPage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 {weatherAlerts.map(alert => (
-                  <div key={alert.id} className={`p-3 rounded-md border-l-4 ${alert.severity === 'High' ? 'border-destructive bg-destructive/10' : 'border-chart-3 bg-chart-3/10'}`}>
+                  <div key={alert.id} className={`p-3 rounded-md border-l-4 ${alert.severity === 'High' ? 'border-destructive bg-destructive/10' : 'border-chart-3/10 bg-chart-3/10'}`}>
                     <p className="font-semibold flex items-center gap-2"><CloudDrizzle /> {alert.airport}</p>
                     <p className="text-sm text-muted-foreground">{alert.alert}</p>
                   </div>
@@ -234,5 +234,3 @@ function PassengerDashboardPage() {
 }
 
 export default withAuth(PassengerDashboardPage, ['passenger']);
-
-    
