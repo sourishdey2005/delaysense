@@ -150,4 +150,29 @@ export const specialNeedsAssistanceData = {
     assignedHelper: 'Rohan S.',
 };
 
-    
+export const flightRiskData = [
+    { flight: '6E 237', risk: 'Low' },
+    { flight: 'AI 804', risk: 'Low' },
+    { flight: 'UK 990', risk: 'Medium' },
+    { flight: 'BA 142', risk: 'High' },
+    { flight: 'EK 517', risk: 'Low' },
+    { flight: 'LH 761', risk: 'Very High' },
+    { flight: 'SQ 401', risk: 'Medium' },
+    { flight: 'SG 8169', risk: 'Low' },
+];
+
+export const upgradeProbabilityData = {
+    probability: 72,
+    level: 'High'
+}
+
+export const travelInsuranceData = {
+    tripProfile: {
+        destination: 'London (LHR)',
+        duration: '7 days',
+        riskLevel: 'Medium'
+    },
+    recommendation: {
+        planName: 'SafeTravel Plus'
+    }
+}
