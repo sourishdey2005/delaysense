@@ -6,7 +6,7 @@ import { Bar, BarChart as RechartsBarChart, Pie, PieChart, Cell, ResponsiveConta
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { airlinePerformanceData, weatherImpactData, hourlyHeatmapData, airportCongestionData, gateCrowdingData } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 
 
 const chartConfigBar = {
@@ -98,6 +98,7 @@ export function HourlyDelayHeatmap() {
     
     return (
         <div className="w-full grid grid-cols-6 md:grid-cols-12 gap-1">
+          <TooltipProvider>
             {data.map(({ hour, value }) => {
                 const hue = 10; // Red-Orange
                 const lightness = 95 - (value / 100) * 80; // from light to dark red
@@ -115,6 +116,7 @@ export function HourlyDelayHeatmap() {
                     </Tooltip>
                 )
             })}
+            </TooltipProvider>
         </div>
     );
 }
@@ -180,7 +182,7 @@ export function AirportCongestionDonut() {
 
 // 6. Origin -> Destination Route Delay Map
 export function RouteDelayMap() {
-    const routes = [
+    const initialRoutes = [
         { id: 'del-bom', d: "M100 150 Q 150 250 200 350", strokeWidth: 2, delay: 20 },
         { id: 'del-blr', d: "M100 150 Q 200 400 250 550", strokeWidth: 3, delay: 60 },
         { id: 'bom-maa', d: "M200 350 Q 300 450 350 500", strokeWidth: 1.5, delay: 10 },
@@ -193,7 +195,7 @@ export function RouteDelayMap() {
         { id: 'MAA', cx: 350, cy: 500, name: 'Chennai' },
         { id: 'CCU', cx: 450, cy: 200, name: 'Kolkata' },
     ]
-    const [liveRoutes, setLiveRoutes] = useState(routes);
+    const [liveRoutes, setLiveRoutes] = useState(initialRoutes);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -250,6 +252,7 @@ export function GateCrowdingBubble() {
 
     return (
         <div className="w-full h-full relative border border-dashed rounded-md bg-muted/20">
+          <TooltipProvider>
             {data.map(bubble => (
                 <Tooltip key={bubble.id}>
                     <TooltipTrigger asChild>
@@ -272,6 +275,7 @@ export function GateCrowdingBubble() {
                     </TooltipContent>
                 </Tooltip>
             ))}
+            </TooltipProvider>
         </div>
     );
 }
