@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Bar, BarChart as RechartsBarChart, Pie, PieChart, Cell, ResponsiveContainer, XAxis, YAxis, Legend, LineChart, Line, Scatter, ScatterChart, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
+import { Bar, BarChart as RechartsBarChart, Pie, PieChart, Cell, ResponsiveContainer, XAxis, YAxis, Legend, LineChart, Line, Scatter, ScatterChart, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, CartesianGrid } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { airlinePerformanceData, weatherImpactData, hourlyHeatmapData, airportCongestionData, gateCrowdingData, luggageData, boardingTimeData, passengerFootfallData, securityQueueForecastData, delayReasonData, pricePredictionData, loungeCrowdingData, foodCourtWaitTimeData, wifiSpeedData, delayHistogramData, travelStressData } from '@/lib/data';
 import { cn } from '@/lib/utils';
