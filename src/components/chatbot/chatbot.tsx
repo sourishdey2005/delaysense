@@ -8,6 +8,8 @@ import { MessageSquare, X, Send, Loader2, Bot } from 'lucide-react';
 import { chat } from '@/ai/flows/chat-flow';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '../ui/scroll-area';
+import { chatbotSuggestions } from '@/lib/chatbot-suggestions';
+import { Badge } from '@/components/ui/badge';
 
 type Message = {
   role: 'user' | 'model';
@@ -19,6 +21,7 @@ export function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -39,10 +42,12 @@ export function Chatbot() {
     }
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!input.trim()) return;
+  const handleSend = async (messageText?: string) => {
+    const message = messageText || input;
+    if (!message.trim()) return;
 
-    const userMessage: Message = { role: 'user', content: input };
+    setShowSuggestions(false);
+    const userMessage: Message = { role: 'user', content: message };
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
@@ -55,7 +60,7 @@ export function Chatbot() {
 
       const response = await chat({
         history: historyForApi,
-        message: input,
+        message: message,
       });
       
       const modelMessage: Message = { role: 'model', content: response.message };
@@ -75,6 +80,10 @@ export function Chatbot() {
     }
   };
 
+  const handleSuggestionClick = (suggestion: string) => {
+    handleSend(suggestion);
+  }
+
   return (
     <>
       <div className="fixed bottom-6 right-6 z-50">
@@ -85,7 +94,7 @@ export function Chatbot() {
 
       {isOpen && (
         <div className="fixed bottom-24 right-6 z-50">
-          <Card className="w-80 h-[28rem] flex flex-col shadow-2xl">
+          <Card className="w-80 h-[32rem] flex flex-col shadow-2xl">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Bot className="text-primary"/> DelayBot Assistant
@@ -116,7 +125,24 @@ export function Chatbot() {
                     </div>
                 </ScrollArea>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex-col items-start">
+               {showSuggestions && (
+                <div className="w-full mb-2">
+                  <p className="text-xs text-muted-foreground mb-2">Suggestions:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {chatbotSuggestions.map((q, i) => (
+                      <Badge 
+                        key={i} 
+                        variant="outline" 
+                        className="cursor-pointer hover:bg-accent"
+                        onClick={() => handleSuggestionClick(q)}
+                      >
+                        {q}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
               <div className="flex w-full items-center space-x-2">
                 <Input
                   value={input}
@@ -125,7 +151,7 @@ export function Chatbot() {
                   placeholder="Ask about delays..."
                   disabled={isLoading}
                 />
-                <Button onClick={handleSend} disabled={isLoading} size="icon">
+                <Button onClick={() => handleSend()} disabled={isLoading} size="icon">
                   <Send />
                 </Button>
               </div>
