@@ -20,7 +20,7 @@ export default function VisualizationsPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Card className="lg:col-span-1">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2"><Gauge className="text-primary"/>Flight Delay Probability</CardTitle>
             <CardDescription>Real-time delay risk for your flight (AI101).</CardDescription>
@@ -29,7 +29,7 @@ export default function VisualizationsPage() {
             <FlightDelayGauge />
           </CardContent>
         </Card>
-        <Card className="lg:col-span-1">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2"><PieIcon className="text-primary"/>Airline On-Time Performance</CardTitle>
             <CardDescription>Delayed vs. on-time flights for a selected airline.</CardDescription>
@@ -38,7 +38,7 @@ export default function VisualizationsPage() {
             <AirlinePerformancePie />
           </CardContent>
         </Card>
-        <Card className="lg:col-span-1">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2"><Donut className="text-primary"/>Airport Congestion Level</CardTitle>
             <CardDescription>Congestion risk at the selected airport (DEL).</CardDescription>
@@ -47,7 +47,17 @@ export default function VisualizationsPage() {
             <AirportCongestionDonut />
           </CardContent>
         </Card>
-
+        
+        <Card className="lg:col-span-3">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2"><Cloudy className="text-primary"/>Weather Impact on Delays</CardTitle>
+            <CardDescription>How different weather conditions affect delay likelihood.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <WeatherImpactBar />
+          </CardContent>
+        </Card>
+        
         <Card className="lg:col-span-3">
           <CardHeader>
             <CardTitle className="flex items-center gap-2"><Thermometer className="text-primary"/>Hourly Delay Heatmap</CardTitle>
@@ -87,17 +97,6 @@ export default function VisualizationsPage() {
             <GateCrowdingBubble />
           </CardContent>
         </Card>
-        
-         <Card className="lg:col-span-3">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Cloudy className="text-primary"/>Weather Impact on Delays</CardTitle>
-            <CardDescription>How different weather conditions affect delay likelihood.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <WeatherImpactBar />
-          </CardContent>
-        </Card>
-
       </div>
     </div>
   );
