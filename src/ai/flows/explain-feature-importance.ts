@@ -41,7 +41,7 @@ export async function explainFeatureImportance(
 
 const prompt = ai.definePrompt({
   name: 'explainFeatureImportancePrompt',
-  input: {schema: ExplainFeatureImportanceInputSchema},
+  input: {schema: z.object({ featureImportancesString: z.string() })},
   output: {schema: ExplainFeatureImportanceOutputSchema},
   prompt: `You are an expert in explaining machine learning model results to non-technical users.
 
@@ -49,7 +49,7 @@ You are provided with a list of feature importances from a flight delay predicti
 
 Explain in a concise and user-friendly way which factors are most influential in predicting flight delays, and provide a brief reason why these factors might be important.
 
-Feature Importances: {{JSON.stringify featureImportances}}`,
+Feature Importances: {{{featureImportancesString}}}`,
 });
 
 const explainFeatureImportanceFlow = ai.defineFlow(
@@ -59,7 +59,8 @@ const explainFeatureImportanceFlow = ai.defineFlow(
     outputSchema: ExplainFeatureImportanceOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const featureImportancesString = JSON.stringify(input.featureImportances);
+    const {output} = await prompt({ featureImportancesString });
     return output!;
   }
 );
