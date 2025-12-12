@@ -2,9 +2,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Bar, BarChart as RechartsBarChart, Pie, PieChart, Cell, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Legend } from 'recharts';
+import { Bar, BarChart as RechartsBarChart, Pie, PieChart, Cell, ResponsiveContainer, XAxis, YAxis, Legend } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { airlinePerformanceData, weatherImpactData, hourlyHeatmapData, airportCongestionData, gateCrowdingData } from '@/lib/data';
+import { airlinePerformanceData, weatherImpactData, hourlyHeatmapData, airportCongestionData, gateCrowdingData, luggageData } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 
@@ -30,35 +30,39 @@ export function FlightDelayGauge() {
   }, []);
 
   const color = probability > 60 ? 'text-destructive' : probability > 30 ? 'text-chart-3' : 'text-chart-2';
+  const rotation = -90 + (probability / 100) * 180;
   
   return (
     <div className="w-full h-48 flex flex-col items-center justify-center relative">
-        <svg viewBox="0 0 120 120" className="w-full h-full">
-            <defs>
-                <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="hsl(var(--chart-2))" />
-                    <stop offset="50%" stopColor="hsl(var(--chart-3))" />
-                    <stop offset="100%" stopColor="hsl(var(--destructive))" />
-                </linearGradient>
-            </defs>
-            <path
-                d="M 20 90 A 40 40 0 1 1 100 90"
-                fill="none"
-                stroke="hsl(var(--muted))"
-                strokeWidth="12"
-                strokeLinecap="round"
-            />
-            <path
-                d="M 20 90 A 40 40 0 1 1 100 90"
-                fill="none"
-                stroke="url(#gaugeGradient)"
-                strokeWidth="12"
-                strokeLinecap="round"
-                strokeDasharray={`${(probability / 100) * Math.PI * 80}, ${Math.PI * 80}`}
-                className="transition-all duration-500"
-            />
-        </svg>
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
+      <svg viewBox="0 0 120 70" className="w-full h-auto">
+        <defs>
+          <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="hsl(var(--chart-2))" />
+            <stop offset="50%" stopColor="hsl(var(--chart-3))" />
+            <stop offset="100%" stopColor="hsl(var(--destructive))" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M 10 60 A 50 50 0 0 1 110 60"
+          fill="none"
+          stroke="hsl(var(--muted))"
+          strokeWidth="12"
+          strokeLinecap="round"
+        />
+        <path
+          d="M 10 60 A 50 50 0 0 1 110 60"
+          fill="none"
+          stroke="url(#gaugeGradient)"
+          strokeWidth="12"
+          strokeLinecap="round"
+        />
+        {/* Needle */}
+        <g transform={`translate(60, 60) rotate(${rotation})`}>
+            <line x1="0" y1="0" x2="0" y2="-45" stroke="hsl(var(--foreground))" strokeWidth="2" />
+            <circle cx="0" cy="0" r="4" fill="hsl(var(--foreground))" />
+        </g>
+      </svg>
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center">
         <p className={`text-5xl font-bold font-headline transition-colors ${color}`}>{probability}%</p>
         <p className="text-center text-muted-foreground text-sm -mt-1">Delay Risk</p>
       </div>
@@ -316,7 +320,7 @@ export function LuggageDelayPie() {
           </Pie>
         </PieChart>
       </ChartContainer>
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <p className="text-2xl font-bold text-foreground">
             {data.find(p => p.name === 'Delayed')?.value}%
         </p>
@@ -325,3 +329,4 @@ export function LuggageDelayPie() {
   );
 }
 
+    
