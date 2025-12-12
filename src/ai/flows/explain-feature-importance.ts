@@ -49,7 +49,7 @@ You are provided with a list of feature importances from a flight delay predicti
 
 Explain in a concise and user-friendly way which factors are most influential in predicting flight delays, and provide a brief reason why these factors might be important.
 
-Feature Importances: {{featureImportances}}`,
+Feature Importances: {{JSON.stringify featureImportances}}`,
 });
 
 const explainFeatureImportanceFlow = ai.defineFlow(
