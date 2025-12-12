@@ -51,6 +51,7 @@ export const delayByHourData = [
   { hour: '23:00', delays: 10 },
 ];
 
+// Replaced feature importance data to remove special characters causing encoding errors.
 export const featureImportanceData = {
   featureImportances: {
     'Departure Difference': 0.35,

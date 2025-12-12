@@ -15,7 +15,7 @@ import {z} from 'genkit';
 
 const ExplainFeatureImportanceInputSchema = z.object({
   featureImportances: z.record(z.string(), z.number()).describe(
-    'A map of feature names to their importance scores.  Example: { distance: 0.4, weather: 0.2, ... }'
+    'A map of feature names to their importance scores. Example: { distance: 0.4, weather: 0.2, ... }'
   ),
 });
 export type ExplainFeatureImportanceInput = z.infer<
