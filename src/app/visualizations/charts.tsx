@@ -29,27 +29,43 @@ export function FlightDelayGauge() {
     return () => clearInterval(interval);
   }, []);
 
-  const rotation = (probability / 100) * 180;
+  const rotation = (probability / 100) * 180 - 90;
   const color = probability > 60 ? 'text-destructive' : probability > 30 ? 'text-chart-3' : 'text-chart-2';
+  const radius = 80;
+  const circumference = Math.PI * radius;
+  const strokeDashoffset = circumference * (1 - probability / 100 / 2);
 
   return (
-    <div className="w-full h-48 flex flex-col items-center justify-center">
-      <div className="relative w-64 h-32 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full border-4 border-muted rounded-t-full border-b-0" />
-        <div 
-          className="absolute top-0 left-0 w-full h-full rounded-t-full border-b-0 transition-all duration-500" 
-          style={{ 
-            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-            background: `conic-gradient(from -90deg, hsl(var(--chart-2)) 0%, hsl(var(--chart-3)) 50%, hsl(var(--destructive)) 100%)`
-          }}
+    <div className="w-full h-48 flex flex-col items-center justify-center relative">
+      <svg className="w-52 h-28" viewBox="0 0 200 100">
+        {/* Background arc */}
+        <path
+          d="M 20 100 A 80 80 0 0 1 180 100"
+          fill="none"
+          stroke="hsl(var(--muted))"
+          strokeWidth="20"
+          strokeLinecap="round"
         />
-        <div className="absolute top-0 left-0 w-full h-full bg-card" style={{ clipPath: 'polygon(10% 100%, 90% 100%, 90% 15%, 10% 15%)' }}/>
-      </div>
-      <div 
-        className="absolute top-28 left-1/2 w-0.5 h-12 bg-foreground origin-top transition-transform duration-500"
-        style={{ transform: `translateX(-50%) rotate(${rotation - 90}deg)` }}
-      />
-      <div className="absolute top-24 left-1/2 -translate-x-1/2">
+        {/* Foreground arc */}
+         <defs>
+          <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="hsl(var(--chart-2))" />
+            <stop offset="50%" stopColor="hsl(var(--chart-3))" />
+            <stop offset="100%" stopColor="hsl(var(--destructive))" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M 20 100 A 80 80 0 0 1 180 100"
+          fill="none"
+          stroke="url(#gaugeGradient)"
+          strokeWidth="20"
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeDashoffset}
+          className="transition-all duration-500"
+        />
+      </svg>
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center">
         <p className={`text-5xl font-bold font-headline transition-colors ${color}`}>{probability}%</p>
         <p className="text-center text-muted-foreground text-sm -mt-1">Delay Risk</p>
       </div>
