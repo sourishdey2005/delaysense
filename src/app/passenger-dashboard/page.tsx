@@ -3,7 +3,7 @@
 import withAuth from '@/components/auth/with-auth';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/hooks/use-auth';
-import { Plane, User, Bell, BriefcaseBusiness, ArrowRight, Car, Shield, PersonStanding, Clock, Map, CloudDrizzle, BaggageClaim, Search, Sparkles, AlertTriangle, Navigation, ShoppingBasket, Armchair, Waypoints, Timer, CalendarCheck, TrendingUp, Hotel, Accessibility, HeartPulse, Bus, Siren } from 'lucide-react';
+import { Plane, User, Bell, BriefcaseBusiness, ArrowRight, Car, Shield, PersonStanding, Clock, Map, CloudDrizzle, BaggageClaim, Search, Sparkles, AlertTriangle, Navigation, ShoppingBasket, Armchair, Waypoints, Timer, CalendarCheck, TrendingUp, Hotel, Accessibility, HeartPulse, Bus, Siren, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { GateCongestionChart, SecurityQueueChart, BaggageDelayChart, FoodCourtCrowdChart } from './charts';
@@ -12,6 +12,14 @@ import { flightRecommendations, weatherAlerts, luggageData, seatComfortData, run
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Progress } from '@/components/ui/progress';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 
 function PassengerDashboardPage() {
   const { user } = useAuth();
@@ -277,8 +285,37 @@ function PassengerDashboardPage() {
                     <CardContent>
                         <div className="p-4 bg-muted/50 rounded-md text-center">
                             <p className="font-semibold">Path to Gate B12</p>
-                            <p className="text-sm text-muted-foreground">Estimated walk time: 8 minutes</p>
-                            <Button variant="outline" size="sm" className="mt-2">Show Path</Button>
+                            <p className="text-sm text-muted-foreground">Distance: 450m・Est. walk time: 8 minutes</p>
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button variant="outline" size="sm" className="mt-2">Show Path</Button>
+                                </DialogTrigger>
+                                <DialogContent className="max-w-md">
+                                    <DialogHeader>
+                                    <DialogTitle className="flex items-center gap-2"><MapPin className="text-primary"/> Airport Navigation</DialogTitle>
+                                    </DialogHeader>
+                                    <div className="relative h-64 w-full bg-muted/30 rounded-lg overflow-hidden border">
+                                        {/* Mock map */}
+                                        <div className="absolute top-1/4 left-1/4 w-3/4 h-1/2 bg-background/50 rounded-md" />
+                                        <div className="absolute top-10 right-10 text-xs font-bold bg-primary text-primary-foreground p-2 rounded-md">Gate B12</div>
+                                        <div className="absolute bottom-4 left-4 text-xs font-bold">You are here</div>
+                                        {/* Path */}
+                                        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                            <path d="M28 80 Q 50 80, 50 60 T 70 28" stroke="hsl(var(--primary))" strokeWidth="2" fill="none" strokeDasharray="4" className="animate-pulse"/>
+                                        </svg>
+                                        <MapPin className="absolute text-chart-2" style={{left: '25%', bottom: '10%'}}/>
+                                    </div>
+                                    <div className="mt-4">
+                                        <h3 className="font-semibold">Turn-by-turn directions:</h3>
+                                        <ol className="list-decimal list-inside text-sm text-muted-foreground space-y-1 mt-2">
+                                            <li>Head straight from Security Checkpoint.</li>
+                                            <li>Turn left at the main concourse.</li>
+                                            <li>Follow signs for Gates B1-B20.</li>
+                                            <li>Gate B12 will be on your right.</li>
+                                        </ol>
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
                         </div>
                     </CardContent>
                 </Card>
@@ -440,5 +477,3 @@ function PassengerDashboardPage() {
 }
 
 export default withAuth(PassengerDashboardPage, ['passenger']);
-
-    
