@@ -118,9 +118,9 @@ export const passengerSentimentData = [
 ];
 
 export const wifiSpeedData = [
-    { terminal: 'T1', speed: 65 },
-    { terminal: 'T2', speed: 30 },
-    { terminal: 'T3', speed: 80 },
+    { crowd: 20, speed: 90 }, { crowd: 30, speed: 80 }, { crowd: 40, speed: 75 },
+    { crowd: 50, speed: 60 }, { crowd: 60, speed: 50 }, { crowd: 70, speed: 40 },
+    { crowd: 80, speed: 30 }, { crowd: 90, speed: 20 }, { crowd: 100, speed: 10 },
 ];
 
 export const checkinLoadData = [
@@ -139,10 +139,10 @@ export const airlinePunctualityData = [
 ];
 
 export const loungeCrowdingData = [
-    { name: 'Plaza Premium (DEL)', level: 'Medium' },
-    { name: 'Adani Lounge (BOM)', level: 'High' },
-    { name: '080 Lounge (BLR)', level: 'Medium' },
-    { name: 'Encalm Lounge (DEL)', level: 'Low' },
+    { lounge: 'Plaza Premium', value: 70 },
+    { lounge: 'Adani Lounge', value: 90 },
+    { lounge: '080 Lounge', value: 60 },
+    { lounge: 'Encalm Lounge', value: 40 },
 ];
 
 export const specialNeedsAssistanceData = {
@@ -209,3 +209,71 @@ export const gateCrowdingData = Array.from({length: 12}, (_, i) => ({
     size: Math.random() * 30 + 10,
     people: Math.floor(Math.random() * 100) + 10,
 }));
+
+// Data for the 12 new charts
+export const boardingTimeData = [
+    { flight: 'AI101', scheduled: 25, actual: 28 },
+    { flight: '6E234', scheduled: 30, actual: 35 },
+    { flight: 'UK990', scheduled: 20, actual: 22 },
+    { flight: 'BA142', scheduled: 35, actual: 50 },
+    { flight: 'EK517', scheduled: 40, actual: 42 },
+];
+
+export const passengerFootfallData = [
+    { time: '06:00', footfall: 1200 }, { time: '07:00', footfall: 1800 },
+    { time: '08:00', footfall: 2500 }, { time: '09:00', footfall: 2200 },
+    { time: '10:00', footfall: 2800 }, { time: '11:00', footfall: 3500 },
+];
+
+export const securityQueueForecastData = [
+    { time: 'Now', waitTime: 25 },
+    { time: '+15min', waitTime: 30 },
+    { time: '+30min', waitTime: 28 },
+    { time: '+45min', waitTime: 22 },
+    { time: '+60min', waitTime: 18 },
+];
+
+export const delayReasonData = [
+    { name: 'Weather', value: 30 },
+    { name: 'ATC', value: 25 },
+    { name: 'Crew', value: 15 },
+    { name: 'Maintenance', value: 20 },
+    { name: 'Other', value: 10 },
+];
+
+export const pricePredictionData = [
+    { day: -3, price: 8500 }, { day: -2, price: 8700 }, { day: -1, price: 8600 },
+    { day: 0, price: 8900 }, { day: 1, price: 9200 }, { day: 2, price: 9500 },
+];
+
+export const foodCourtWaitTimeData = [
+    { name: 'Starbucks', waitTime: 12 },
+    { name: 'McDonalds', waitTime: 8 },
+    { name: 'Pizza Hut', waitTime: 18 },
+    { name: 'Dilli Streat', waitTime: 5 },
+];
+
+
+export const delayHistogramData = [
+    { range: '<0min', flights: 500 },
+    { range: '0-15', flights: 800 },
+    { range: '15-30', flights: 650 },
+    { range: '30-60', flights: 400 },
+    { range: '>60min', flights: 200 },
+];
+
+export const travelStressData = {
+    inner: [
+        { name: 'Low', value: 40 },
+        { name: 'Medium', value: 35 },
+        { name: 'High', value: 25 },
+    ],
+    outer: [
+        { name: 'Queue Time', value: 15, color: 'hsl(var(--destructive)/0.8)' },
+        { name: 'Congestion', value: 10, color: 'hsl(var(--destructive)/0.7)' },
+        { name: 'Delay', value: 20, color: 'hsl(var(--chart-3)/0.8)' },
+        { name: 'Connections', value: 15, color: 'hsl(var(--chart-3)/0.7)' },
+        { name: 'Walk Distance', value: 20, color: 'hsl(var(--chart-2)/0.8)' },
+        { name: 'Other', value: 20, color: 'hsl(var(--chart-2)/0.7)' },
+    ]
+};
