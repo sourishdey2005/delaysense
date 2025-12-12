@@ -1,15 +1,34 @@
 
 export const airlines = [
-  'IndiGo', 'Vistara', 'Air India', 'SpiceJet', 
-  'Delta', 'American', 'United', 'Southwest', 
-  'Emirates', 'Etihad', 'Qatar Airways', 'Lufthansa', 
-  'Singapore Airlines', 'British Airways', 'KLM'
+  // India
+  'IndiGo', 'Vistara', 'Air India', 'SpiceJet', 'Akasa Air', 'Air India Express',
+  // US
+  'Delta', 'American Airlines', 'United Airlines', 'Southwest Airlines', 'Alaska Airlines', 'JetBlue',
+  // Europe
+  'Lufthansa', 'British Airways', 'KLM', 'Air France', 'Turkish Airlines', 'Ryanair', 'easyJet',
+  // Middle East
+  'Emirates', 'Etihad', 'Qatar Airways', 'Saudia',
+  // Asia
+  'Singapore Airlines', 'Cathay Pacific', 'ANA', 'Japan Airlines', 'Korean Air',
+  // Oceania
+  'Qantas', 'Air New Zealand',
 ];
 
 export const airports = [
-  'DEL', 'BOM', 'BLR', 'MAA', 'CCU', // India
-  'JFK', 'LAX', 'ORD', 'DFW', 'ATL', // US
-  'DXB', 'LHR', 'SIN', 'FRA', 'CDG'  // International
+  // India
+  'DEL', 'BOM', 'BLR', 'MAA', 'CCU', 'HYD', 'PNQ', 'AMD', 'JAI', 'LKO', 'GAU', 'COK',
+  // US
+  'JFK', 'LAX', 'ORD', 'DFW', 'ATL', 'SFO', 'DEN', 'LAS', 'MIA', 'SEA', 'BOS', 'IAD',
+  // Europe
+  'LHR', 'CDG', 'FRA', 'AMS', 'IST', 'MAD', 'BCN', 'FCO', 'MUC', 'ZRH', 'VIE',
+  // Middle East
+  'DXB', 'DOH', 'AUH', 'RUH', 'JED',
+  // Asia
+  'SIN', 'HKG', 'ICN', 'HND', 'NRT', 'BKK', 'KUL', 'TPE', 'PVG',
+  // Oceania
+  'SYD', 'MEL', 'AKL',
+  // Canada
+  'YYZ', 'YVR',
 ];
 
 export const weatherConditions = [
@@ -21,7 +40,7 @@ export const airportCongestionLevels = [
 ];
 
 export const aircraftTypes = [
-    'A320', 'B737', 'B787', 'A350', 'B777', 'A380', 'Q400'
+    'A320', 'B737', 'B787', 'A350', 'B777', 'A380', 'Q400', 'A220', 'B747', 'E190'
 ];
 
 export const daysOfWeek = [
