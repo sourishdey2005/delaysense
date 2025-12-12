@@ -59,8 +59,8 @@ export const featureImportanceData = {
         'Weather Conditions': 0.2,
         'Departure Time': 0.1,
         'Flight Duration': 0.05,
-        Distance: 0.03,
-        Airline: 0.02
+        'Distance': 0.03,
+        'Airline': 0.02
     }
 };
 
@@ -107,5 +107,3 @@ export const luggageData = {
     baggageDelayProbability: 15,
     progress: 50,
 };
-
-    
