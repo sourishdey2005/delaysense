@@ -23,12 +23,12 @@ import { Loader2 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 const formSchema = z.object({
-  username: z.string().min(1, 'Username is required'),
-  password: z.string().min(1, 'Password is required'),
+  username: z.string().min(3, 'Username must be at least 3 characters.'),
+  password: z.string().min(6, 'Password must be at least 6 characters.'),
 });
 
-export default function LoginPage() {
-  const { login } = useAuth();
+export default function SignupPage() {
+  const { signup } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -44,34 +44,19 @@ export default function LoginPage() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     try {
-      const user = await login(values.username, values.password);
+      const user = await signup(values.username, values.password);
       if (user) {
         toast({
-          title: 'Login Successful',
-          description: `Welcome, ${user.username}!`,
+          title: 'Signup Successful',
+          description: `Welcome, ${user.username}! You are now logged in.`,
         });
-        
-        switch (user.role) {
-          case 'airline':
-            router.push('/airline-dashboard');
-            break;
-          case 'government':
-            router.push('/government-dashboard');
-            break;
-          case 'passenger':
-            router.push('/passenger-dashboard');
-            break;
-          default:
-            router.push('/');
-        }
-      } else {
-        throw new Error('Invalid credentials');
+        router.push('/passenger-dashboard');
       }
     } catch (error: any) {
       toast({
         variant: 'destructive',
-        title: 'Login Failed',
-        description: error.message || 'Invalid username or password.',
+        title: 'Signup Failed',
+        description: error.message || 'Could not create your account.',
       });
     } finally {
         setIsLoading(false);
@@ -82,8 +67,8 @@ export default function LoginPage() {
     <div className="flex min-h-screen flex-col items-center justify-center p-4">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>Enter your credentials to access your dashboard.</CardDescription>
+          <CardTitle className="text-2xl">Create an account</CardTitle>
+          <CardDescription>Enter your details to sign up as a passenger.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -95,7 +80,7 @@ export default function LoginPage() {
                   <FormItem>
                     <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., airindia or passenger" {...field} />
+                      <Input placeholder="e.g., travelbug" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,14 +93,14 @@ export default function LoginPage() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="e.g., password" {...field} />
+                      <Input type="password" placeholder="••••••••" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <Button type="submit" className="w-full" disabled={isLoading}>
-                 {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Logging in...</> : 'Login'}
+                 {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing up...</> : 'Sign Up'}
               </Button>
             </form>
           </Form>
@@ -123,9 +108,9 @@ export default function LoginPage() {
         <CardFooter className="flex-col items-center gap-4">
           <Separator />
           <p className="text-sm text-muted-foreground">
-            Don't have an account?{' '}
-            <Link href="/signup" className="text-primary hover:underline">
-              Sign up
+            Already have an account?{' '}
+            <Link href="/login" className="text-primary hover:underline">
+              Log in
             </Link>
           </p>
         </CardFooter>
