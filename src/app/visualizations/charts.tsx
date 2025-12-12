@@ -284,35 +284,50 @@ export function GateCrowdingBubble() {
 // 8. Luggage Delay Probability Pie Chart
 export function LuggageDelayPie() {
   const [data, setData] = useState([
-    { name: 'On-Time', value: 88, color: 'hsl(var(--chart-2))' },
-    { name: 'Delayed', value: 12, color: 'hsl(var(--destructive))' },
+    { name: 'On-Time', value: 88 },
+    { name: 'Delayed', value: 12 },
   ]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       const delayed = Math.floor(Math.random() * 20) + 5;
       setData([
-        { name: 'On-Time', value: 100 - delayed, color: 'hsl(var(--chart-2))' },
-        { name: 'Delayed', value: delayed, color: 'hsl(var(--destructive))' },
+        { name: 'On-Time', value: 100 - delayed },
+        { name: 'Delayed', value: delayed },
       ]);
     }, 4500);
     return () => clearInterval(interval);
   }, []);
 
+  const delayedValue = data.find(p => p.name === 'Delayed')?.value || 0;
+
   return (
-    <div className="w-full h-48 relative">
-      <ChartContainer config={chartConfigPie} className="mx-auto aspect-square w-full max-w-[250px]">
+    <div className="w-full h-48 flex flex-col items-center justify-center">
+      <ChartContainer
+        config={chartConfigPie}
+        className="mx-auto aspect-square w-full max-w-[150px]"
+      >
         <PieChart>
-          <ChartTooltip cursor={true} content={<ChartTooltipContent hideLabel />} />
-          <Pie data={data} dataKey="value" nameKey="name" innerRadius={50} outerRadius={70} paddingAngle={2}>
-            {data.map((entry) => <Cell key={entry.name} fill={entry.color} />)}
+          <ChartTooltip
+            cursor={true}
+            content={<ChartTooltipContent hideLabel />}
+          />
+          <Pie
+            data={data}
+            dataKey="value"
+            nameKey="name"
+            innerRadius={50}
+            outerRadius={70}
+            paddingAngle={2}
+          >
+            <Cell fill="var(--color-ontime)" />
+            <Cell fill="var(--color-delayed)" />
           </Pie>
         </PieChart>
       </ChartContainer>
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <p className="text-2xl font-bold text-foreground">
-            {data.find(p => p.name === 'Delayed')?.value}%
-        </p>
-      </div>
+      <p className="text-xl font-bold text-foreground mt-2">
+        {delayedValue}%
+      </p>
     </div>
   );
 }
