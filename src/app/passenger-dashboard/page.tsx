@@ -1,3 +1,4 @@
+
 'use client';
 
 import withAuth from '@/components/auth/with-auth';
@@ -28,14 +29,29 @@ function PassengerDashboardPage() {
   const [liveLuggageData, setLiveLuggageData] = useState(luggageData);
   const [liveBoardingTime, setLiveBoardingTime] = useState(15); // in minutes
   const [liveTicketPrice, setLiveTicketPrice] = useState(ticketPriceData.currentPrice);
+  const [navigationData, setNavigationData] = useState({ gate: 'B12', distance: 450, time: 8 });
 
   useEffect(() => {
+    // Simulate dynamic navigation data based on user
+    if (user) {
+        const gates = ['A4', 'B12', 'C7', 'D1', 'E9'];
+        const hash = user.username.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        const gate = gates[hash % gates.length];
+        const distance = 200 + (hash % 10) * 50;
+        const time = Math.ceil(distance / 70); // avg walking speed
+        setNavigationData({ gate, distance, time });
+    }
+
     const luggageInterval = setInterval(() => {
       setLiveLuggageData(prevData => {
-        const newProgress = Math.min(prevData.progress + 10, 100);
+        let newProgress = prevData.progress + 10;
+        if (newProgress > 100) newProgress = 10; // Loop the progress for demo
+
         let newStatus = prevData.status;
-        if (newProgress > 25 && newProgress < 60) newStatus = 'Loaded on Plane';
-        else if (newProgress >= 100) newStatus = 'At Destination';
+        if (newProgress <= 25) newStatus = 'Checked In';
+        else if (newProgress <= 60) newStatus = 'Loaded on Plane';
+        else if (newProgress < 100) newStatus = 'In Transit to Destination';
+        else newStatus = 'At Destination';
         
         return {
           ...prevData,
@@ -47,7 +63,7 @@ function PassengerDashboardPage() {
     }, 5000);
 
     const boardingTimeInterval = setInterval(() => {
-        setLiveBoardingTime(prev => Math.max(5, prev -1));
+        setLiveBoardingTime(prev => (prev <= 5 ? 25 : prev - 1)); // Loop boarding time
     }, 7000);
 
     const ticketPriceInterval = setInterval(() => {
@@ -59,7 +75,7 @@ function PassengerDashboardPage() {
         clearInterval(boardingTimeInterval);
         clearInterval(ticketPriceInterval);
     }
-  }, []);
+  }, [user]);
 
 
   return (
@@ -96,7 +112,7 @@ function PassengerDashboardPage() {
                                 </div>
                                 <div className="text-right">
                                     <p className="font-semibold text-chart-2">On Time</p>
-                                    <p className="text-xs text-muted-foreground">Gate B5</p>
+                                    <p className="text-xs text-muted-foreground">Gate {navigationData.gate}</p>
                                 </div>
                             </div>
                         </div>
@@ -284,20 +300,20 @@ function PassengerDashboardPage() {
                     </CardHeader>
                     <CardContent>
                         <div className="p-4 bg-muted/50 rounded-md text-center">
-                            <p className="font-semibold">Path to Gate B12</p>
-                            <p className="text-sm text-muted-foreground">Distance: 450m・Est. walk time: 8 minutes</p>
+                            <p className="font-semibold">Path to Gate {navigationData.gate}</p>
+                            <p className="text-sm text-muted-foreground">Distance: {navigationData.distance}m・Est. walk time: {navigationData.time} minutes</p>
                             <Dialog>
                                 <DialogTrigger asChild>
                                     <Button variant="outline" size="sm" className="mt-2">Show Path</Button>
                                 </DialogTrigger>
                                 <DialogContent className="max-w-md">
                                     <DialogHeader>
-                                    <DialogTitle className="flex items-center gap-2"><MapPin className="text-primary"/> Airport Navigation</DialogTitle>
+                                    <DialogTitle className="flex items-center gap-2"><MapPin className="text-primary"/> Airport Navigation to Gate {navigationData.gate}</DialogTitle>
                                     </DialogHeader>
                                     <div className="relative h-64 w-full bg-muted/30 rounded-lg overflow-hidden border">
                                         {/* Mock map */}
                                         <div className="absolute top-1/4 left-1/4 w-3/4 h-1/2 bg-background/50 rounded-md" />
-                                        <div className="absolute top-10 right-10 text-xs font-bold bg-primary text-primary-foreground p-2 rounded-md">Gate B12</div>
+                                        <div className="absolute top-10 right-10 text-xs font-bold bg-primary text-primary-foreground p-2 rounded-md">Gate {navigationData.gate}</div>
                                         <div className="absolute bottom-4 left-4 text-xs font-bold">You are here</div>
                                         {/* Path */}
                                         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -310,8 +326,8 @@ function PassengerDashboardPage() {
                                         <ol className="list-decimal list-inside text-sm text-muted-foreground space-y-1 mt-2">
                                             <li>Head straight from Security Checkpoint.</li>
                                             <li>Turn left at the main concourse.</li>
-                                            <li>Follow signs for Gates B1-B20.</li>
-                                            <li>Gate B12 will be on your right.</li>
+                                            <li>Follow signs for Gates {navigationData.gate.charAt(0)}1-{navigationData.gate.charAt(0)}20.</li>
+                                            <li>Gate {navigationData.gate} will be on your right.</li>
                                         </ol>
                                     </div>
                                 </DialogContent>
@@ -477,3 +493,5 @@ function PassengerDashboardPage() {
 }
 
 export default withAuth(PassengerDashboardPage, ['passenger']);
+
+    
