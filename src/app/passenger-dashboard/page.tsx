@@ -43,7 +43,7 @@ function PassengerDashboardPage() {
     }, 7000);
 
     const ticketPriceInterval = setInterval(() => {
-        setLiveTicketPrice(prev => prev + (Math.random() - 0.5) * 10);
+        setLiveTicketPrice(prev => prev + (Math.random() - 0.5) * 500);
     }, 3000);
 
     return () => {
@@ -83,19 +83,19 @@ function PassengerDashboardPage() {
                         <div className="p-3 bg-muted/50 rounded-md">
                             <div className="flex justify-between items-center">
                                 <div>
-                                    <p className="font-semibold">DL456 to JFK</p>
+                                    <p className="font-semibold">AI101 to JFK</p>
                                     <p className="text-sm text-muted-foreground">Scheduled Departure: 18:30</p>
                                 </div>
                                 <div className="text-right">
                                     <p className="font-semibold text-chart-2">On Time</p>
-                                    <p className="text-xs text-muted-foreground">Gate A12</p>
+                                    <p className="text-xs text-muted-foreground">Gate B5</p>
                                 </div>
                             </div>
                         </div>
                         <div className="p-3 bg-muted/50 rounded-md">
                             <div className="flex justify-between items-center">
                                 <div>
-                                    <p className="font-semibold">UA789 to ORD</p>
+                                    <p className="font-semibold">6E234 to BOM</p>
                                     <p className="text-sm text-muted-foreground">Scheduled Departure: 20:00</p>
                                 </div>
                                 <div className="text-right">
@@ -108,13 +108,13 @@ function PassengerDashboardPage() {
                                 <h4 className="font-semibold text-sm mb-2">Smart Rebooking Assistant</h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
                                     <div className="p-2 bg-background/50 rounded">
-                                    <p className="font-bold">AA123 to ORD</p>
+                                    <p className="font-bold">UK980 to BOM</p>
                                     <p>Departs: 20:15, Arrives: 22:30</p>
                                     <p className="text-chart-2">On Time</p>
                                     <Button size="sm" className="h-6 mt-1">Select</Button>
                                     </div>
                                     <div className="p-2 bg-background/50 rounded">
-                                    <p className="font-bold">DL987 to ORD</p>
+                                    <p className="font-bold">SG456 to BOM</p>
                                     <p>Departs: 20:30, Arrives: 22:45</p>
                                     <p className="text-chart-2">On Time</p>
                                     <Button size="sm" className="h-6 mt-1" variant="secondary">Select</Button>
@@ -135,20 +135,20 @@ function PassengerDashboardPage() {
                     <CardContent className="space-y-4">
                         <div className="flex justify-between items-center text-sm">
                             <span className="flex items-center gap-2 text-muted-foreground"><Car /> Travel to Airport</span>
-                            <span className="font-semibold">35 min</span>
+                            <span className="font-semibold">45 min</span>
                         </div>
                         <div className="flex justify-between items-center text-sm">
                             <span className="flex items-center gap-2 text-muted-foreground"><Shield /> Security Wait</span>
-                            <span className="font-semibold">20 min</span>
+                            <span className="font-semibold">25 min</span>
                         </div>
                         <div className="flex justify-between items-center text-sm">
                             <span className="flex items-center gap-2 text-muted-foreground"><PersonStanding /> Walk to Gate</span>
-                            <span className="font-semibold">10 min</span>
+                            <span className="font-semibold">15 min</span>
                         </div>
                         <div className="border-t border-dashed my-2"></div>
                         <div className="flex justify-between items-center font-bold text-base">
                             <span>Total Estimated Time</span>
-                            <span>65 min</span>
+                            <span>85 min</span>
                         </div>
                     </CardContent>
                 </Card>
@@ -313,7 +313,7 @@ function PassengerDashboardPage() {
                     </CardHeader>
                     <CardContent className="text-center">
                         <div className="bg-muted/50 p-2 rounded-md">
-                            <p className="text-sm font-semibold">Runway 24L/6R Traffic</p>
+                            <p className="text-sm font-semibold">Runway 28R/10L Traffic</p>
                             <p className="text-xs text-muted-foreground">
                                 {runwayTrafficData.departures} Departures / {runwayTrafficData.arrivals} Arrivals Queued
                             </p>
@@ -342,11 +342,11 @@ function PassengerDashboardPage() {
                         <CardDescription>Predicts if ticket prices will rise or fall.</CardDescription>
                     </CardHeader>
                     <CardContent className="text-center">
-                        <p className="text-sm text-muted-foreground">Current Price for LAX-JFK:</p>
-                        <p className="text-3xl font-bold text-primary">${liveTicketPrice.toFixed(2)}</p>
+                        <p className="text-sm text-muted-foreground">Current Price for DEL-BOM:</p>
+                        <p className="text-3xl font-bold text-primary">₹{liveTicketPrice.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</p>
                         <p className={cn("text-sm font-semibold", liveTicketPrice > ticketPriceData.prediction ? "text-destructive" : "text-chart-2")}>
-                           Prediction: Price will {liveTicketPrice > ticketPriceData.prediction ? 'drop' : 'rise'} to ~$
-                           {ticketPriceData.prediction.toFixed(2)}
+                           Prediction: Price will {liveTicketPrice > ticketPriceData.prediction ? 'drop' : 'rise'} to ~₹
+                           {ticketPriceData.prediction.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
                         </p>
                     </CardContent>
                 </Card>
@@ -359,7 +359,7 @@ function PassengerDashboardPage() {
                        <div className="p-4 bg-muted/50 rounded-md w-full">
                             <p className="font-semibold">Original Itinerary:</p>
                             <ul className="list-disc list-inside text-sm text-muted-foreground">
-                                <li>Flight UA789: Departs 20:00</li>
+                                <li>Flight 6E234: Departs 20:00</li>
                                 <li>Hotel Check-in: 23:00</li>
                                 <li>Dinner Reservation: 23:30</li>
                             </ul>
@@ -368,7 +368,7 @@ function PassengerDashboardPage() {
                        <div className="p-4 bg-primary/10 rounded-md w-full border border-primary/20">
                             <p className="font-semibold">Updated Itinerary:</p>
                             <ul className="list-disc list-inside text-sm text-muted-foreground">
-                                <li>Rebooked to AA123: Departs 20:15</li>
+                                <li>Rebooked to UK980: Departs 20:15</li>
                                 <li>Hotel Check-in: Notified of late arrival</li>
                                 <li>Dinner Reservation: Rescheduled to next day</li>
                             </ul>
@@ -407,7 +407,7 @@ function PassengerDashboardPage() {
                     </CardHeader>
                     <CardContent>
                         <div className="p-2 bg-muted/50 rounded-md text-xs">
-                            <p className="font-bold">Suggested: DL582 to SFO</p>
+                            <p className="font-bold">Suggested: AI505 to BLR</p>
                             <p>Later departure, lower cabin noise, less turbulence.</p>
                         </div>
                     </CardContent>
@@ -428,8 +428,8 @@ function PassengerDashboardPage() {
                         <CardDescription>Predicts gate changes before they happen.</CardDescription>
                     </CardHeader>
                     <CardContent className="text-center">
-                        <p className="text-sm text-muted-foreground">High probability of change for UA789.</p>
-                        <p className="text-lg font-bold">Predicted new gate: <span className="text-primary">B14</span></p>
+                        <p className="text-sm text-muted-foreground">High probability of change for 6E234.</p>
+                        <p className="text-lg font-bold">Predicted new gate: <span className="text-primary">C7</span></p>
                     </CardContent>
                 </Card>
             </div>

@@ -1,14 +1,19 @@
 
 export const airlines = [
-  'Delta', 'American', 'United', 'Southwest', 'Alaska', 'JetBlue', 'Spirit', 'Frontier'
+  'IndiGo', 'Vistara', 'Air India', 'SpiceJet', 
+  'Delta', 'American', 'United', 'Southwest', 
+  'Emirates', 'Etihad', 'Qatar Airways', 'Lufthansa', 
+  'Singapore Airlines', 'British Airways', 'KLM'
 ];
 
 export const airports = [
-  'JFK', 'LAX', 'ORD', 'DFW', 'DEN', 'ATL', 'SFO', 'LAS', 'MCO', 'SEA'
+  'DEL', 'BOM', 'BLR', 'MAA', 'CCU', // India
+  'JFK', 'LAX', 'ORD', 'DFW', 'ATL', // US
+  'DXB', 'LHR', 'SIN', 'FRA', 'CDG'  // International
 ];
 
 export const weatherConditions = [
-  'Clear', 'Rain', 'Storm', 'Fog', 'Snow', 'Cloudy'
+  'Clear', 'Rain', 'Storm', 'Fog', 'Snow', 'Cloudy', 'Haze', 'Monsoon'
 ];
 
 export const airportCongestionLevels = [
@@ -16,24 +21,24 @@ export const airportCongestionLevels = [
 ];
 
 export const airportDelayData = [
-  { airport: 'JFK', delays: 120 },
-  { airport: 'LAX', delays: 110 },
-  { airport: 'ORD', delays: 105 },
-  { airport: 'DFW', delays: 95 },
-  { airport: 'ATL', delays: 80 },
-  { airport: 'SFO', delays: 75 },
-  { airport: 'DEN', delays: 60 },
+  { airport: 'DEL', delays: 130 },
+  { airport: 'BOM', delays: 125 },
+  { airport: 'JFK', delays: 115 },
+  { airport: 'LHR', delays: 110 },
+  { airport: 'LAX', delays: 100 },
+  { airport: 'ORD', delays: 95 },
+  { airport: 'BLR', delays: 90 },
 ];
 
 export const delayByHourData = [
   { hour: '00:00', delays: 5 }, { hour: '01:00', delays: 3 }, { hour: '02:00', delays: 2 },
-  { hour: '03:00', delays: 1 }, { hour: '04:00', delays: 2 }, { hour: '05:00', delays: 4 },
-  { hour: '06:00', delays: 10 }, { hour: '07:00', delays: 15 }, { hour: '08:00', delays: 25 },
-  { hour: '09:00', delays: 22 }, { hour: '10:00', delays: 28 }, { hour: '11:00', delays: 30 },
-  { hour: '12:00', delays: 35 }, { hour: '13:00', delays: 32 }, { hour: '14:00', delays: 40 },
-  { hour: '15:00', delays: 45 }, { hour: '16:00', delays: 50 }, { hour: '17:00', delays: 55 },
-  { hour: '18:00', delays: 60 }, { hour: '19:00', delays: 50 }, { hour: '20:00', delays: 40 },
-  { hour: '21:00', delays: 30 }, { hour: '22:00', delays: 20 }, { hour: '23:00', delays: 10 },
+  { hour: '03:00', delays: 1 }, { hour: '04:00', delays: 4 }, { hour: '05:00', delays: 8 },
+  { hour: '06:00', delays: 15 }, { hour: '07:00', delays: 20 }, { hour: '08:00', delays: 30 },
+  { hour: '09:00', delays: 28 }, { hour: '10:00', delays: 32 }, { hour: '11:00', delays: 35 },
+  { hour: '12:00', delays: 38 }, { hour: '13:00', delays: 36 }, { hour: '14:00', delays: 45 },
+  { hour: '15:00', delays: 50 }, { hour: '16:00', delays: 55 }, { hour: '17:00', delays: 60 },
+  { hour: '18:00', delays: 65 }, { hour: '19:00', delays: 58 }, { hour: '20:00', delays: 50 },
+  { hour: '21:00', delays: 40 }, { hour: '22:00', delays: 25 }, { hour: '23:00', delays: 15 },
 ];
 
 export const featureImportanceData = {
@@ -47,64 +52,63 @@ export const featureImportanceData = {
 export const travelTimeData = {
   labels: ['Travel to Airport', 'Security Wait', 'Walk to Gate'],
   times: [
-    { label: 'Travel to Airport', time: 35 },
-    { label: 'Security Wait', time: 20 },
-    { label: 'Walk to Gate', time: 10 },
+    { label: 'Travel to Airport', time: 45 },
+    { label: 'Security Wait', time: 25 },
+    { label: 'Walk to Gate', time: 15 },
   ]
 };
 
 export const gateCongestionData = [
-  { gate: 'A1', congestion: 0.8 }, { gate: 'A2', congestion: 0.6 }, { gate: 'A3', congestion: 0.3 },
-  { gate: 'A4', congestion: 0.9 }, { gate: 'A5', congestion: 0.5 }, { gate: 'A6', congestion: 0.2 },
-  { gate: 'B1', congestion: 0.4 }, { gate: 'B2', congestion: 0.7 }, { gate: 'B3', congestion: 0.5 },
+  { gate: 'A1', congestion: 0.8 }, { gate: 'B5', congestion: 0.6 }, { gate: 'C2', congestion: 0.3 },
+  { gate: 'D9', congestion: 0.9 }, { gate: 'E1', congestion: 0.5 }, { gate: 'F3', congestion: 0.2 },
+  { gate: 'G4', congestion: 0.4 }, { gate: 'H2', congestion: 0.7 }, { gate: 'J6', congestion: 0.5 },
 ];
 
 export const flightRecommendations = [
-    { id: 1, airline: 'Delta', flightNumber: 'DL234', destination: 'LAX', departs: '10:00 AM', onTimePercentage: 92, historicalDataPoints: 1500 },
-    { id: 2, airline: 'United', flightNumber: 'UA567', destination: 'LAX', departs: '10:30 AM', onTimePercentage: 85, historicalDataPoints: 1200 },
-    { id: 3, airline: 'JetBlue', flightNumber: 'JB890', destination: 'LAX', departs: '11:00 AM', onTimePercentage: 88, historicalDataPoints: 800 },
+    { id: 1, airline: 'Vistara', flightNumber: 'UK870', destination: 'BOM', departs: '10:00 AM', onTimePercentage: 94, historicalDataPoints: 2100 },
+    { id: 2, airline: 'Emirates', flightNumber: 'EK201', destination: 'DXB', departs: '10:30 AM', onTimePercentage: 92, historicalDataPoints: 4500 },
+    { id: 3, airline: 'IndiGo', flightNumber: '6E534', destination: 'BLR', departs: '11:00 AM', onTimePercentage: 89, historicalDataPoints: 3200 },
 ];
 
 export const weatherAlerts = [
-    { id: 1, airport: 'JFK', alert: 'Thunderstorms expected around 4 PM. Potential for ground stops.', severity: 'High' },
-    { id: 2, airport: 'ORD', alert: 'Heavy fog reported. Visibility may cause delays.', severity: 'Medium' },
+    { id: 1, airport: 'BOM', alert: 'Heavy monsoon rains expected around 2 PM. Potential for significant delays.', severity: 'High' },
+    { id: 2, airport: 'DEL', alert: 'Dense fog predicted for early morning flights. Visibility may cause delays.', severity: 'Medium' },
 ];
 
 export const securityQueueData = [
     { terminal: 'T1', waitTime: 15 },
-    { terminal: 'T2', waitTime: 25 },
-    { terminal: 'T3', waitTime: 10 },
-    { terminal: 'T4', waitTime: 40 },
+    { terminal: 'T2', waitTime: 35 },
+    { terminal: 'T3', waitTime: 20 },
 ];
 
 export const luggageData = {
-    tag: 'UA-123456',
+    tag: 'AI-654321',
     status: 'Checked In',
-    lostProbability: 2.5,
-    baggageDelayProbability: 15,
+    lostProbability: 1.5,
+    baggageDelayProbability: 12,
     progress: 10,
 };
 
 export const foodCourtCrowdData = [
-    { name: 'Starbucks', crowd: 0.8, wait: 15 },
-    { name: 'McDonalds', crowd: 0.9, wait: 20 },
-    { name: 'SaladBar', crowd: 0.4, wait: 5 },
-    { name: 'PizzaHut', crowd: 0.7, wait: 12 },
+    { name: 'Bikanervala', crowd: 0.8, wait: 15 },
+    { name: 'Subway', crowd: 0.9, wait: 20 },
+    { name: 'Cafe Coffee Day', crowd: 0.6, wait: 8 },
+    { name: 'Foodies Bar', crowd: 0.7, wait: 12 },
 ];
 
 export const seatComfortData = {
     turbulenceForecast: 'Light to Moderate',
-    recommendedSeats: ['12A', '14F', '15A', '20C']
+    recommendedSeats: ['15A', '16F', '17A', '22C']
 };
 
 export const runwayTrafficData = {
-    departures: 5,
-    arrivals: 3,
+    departures: 7,
+    arrivals: 4,
 };
 
 export const ticketPriceData = {
-    currentPrice: 450.25,
-    prediction: 435.50
+    currentPrice: 8500.75,
+    prediction: 8250.50
 };
 
 export const passengerSentimentData = [
@@ -114,10 +118,9 @@ export const passengerSentimentData = [
 ];
 
 export const wifiSpeedData = [
-    { terminal: 'T1', speed: 75 },
-    { terminal: 'T2', speed: 40 },
-    { terminal: 'T3', speed: 90 },
-    { terminal: 'T4', speed: 25 },
+    { terminal: 'T1', speed: 65 },
+    { terminal: 'T2', speed: 30 },
+    { terminal: 'T3', speed: 80 },
 ];
 
 export const checkinLoadData = [
@@ -128,23 +131,23 @@ export const checkinLoadData = [
 ];
 
 export const airlinePunctualityData = [
-    { airline: 'Delta', score: 92.5, flights: 1203 },
-    { airline: 'United', score: 88.2, flights: 1105 },
-    { airline: 'American', score: 85.1, flights: 1300 },
-    { airline: 'Southwest', score: 94.1, flights: 2400 },
-    { airline: 'JetBlue', score: 89.5, flights: 780 },
+    { airline: 'IndiGo', score: 91.2, flights: 3200 },
+    { airline: 'Vistara', score: 93.5, flights: 1800 },
+    { airline: 'Air India', score: 86.8, flights: 2105 },
+    { airline: 'Emirates', score: 95.1, flights: 1500 },
+    { airline: 'Lufthansa', score: 90.5, flights: 980 },
 ];
 
 export const loungeCrowdingData = [
-    { name: 'Delta Sky Club', level: 'Medium' },
-    { name: 'AA Admirals Club', level: 'High' },
-    { name: 'The Centurion Lounge', level: 'High' },
-    { name: 'United Club', level: 'Low' },
+    { name: 'Plaza Premium (DEL)', level: 'Medium' },
+    { name: 'Adani Lounge (BOM)', level: 'High' },
+    { name: '080 Lounge (BLR)', level: 'Medium' },
+    { name: 'Encalm Lounge (DEL)', level: 'Low' },
 ];
 
 export const specialNeedsAssistanceData = {
-    predictedTime: 25,
-    assignedHelper: 'John P.',
+    predictedTime: 22,
+    assignedHelper: 'Rohan S.',
 };
 
     
