@@ -19,7 +19,7 @@ export type ScanTicketInput = z.infer<typeof ScanTicketInputSchema>;
 
 const ScanTicketOutputSchema = z.object({
   passengerName: z.string().describe('The full name of the passenger.'),
-  flightNumber: z.string().describe('The flight number (e.g., AI 101).'),
+  flightNumber: z.string().describe('The flight number (e.g., AI-101).'),
   departureAirport: z.string().describe('The three-letter IATA code for the departure airport (e.g., DEL).'),
   arrivalAirport: z.string().describe('The three-letter IATA code for the arrival airport (e.g., JFK).'),
   seat: z.string().describe('The passenger\'s seat number (e.g., 24A).'),
