@@ -26,44 +26,23 @@ export const airportDelayData = [
 ];
 
 export const delayByHourData = [
-  { hour: '00:00', delays: 5 },
-  { hour: '01:00', delays: 3 },
-  { hour: '02:00', delays: 2 },
-  { hour: '03:00', delays: 1 },
-  { hour: '04:00', delays: 2 },
-  { hour: '05:00', delays: 4 },
-  { hour: '06:00', delays: 10 },
-  { hour: '07:00', delays: 15 },
-  { hour: '08:00', delays: 25 },
-  { hour: '09:00', delays: 22 },
-  { hour: '10:00', delays: 28 },
-  { hour: '11:00', delays: 30 },
-  { hour: '12:00', delays: 35 },
-  { hour: '13:00', delays: 32 },
-  { hour: '14:00', delays: 40 },
-  { hour: '15:00', delays: 45 },
-  { hour: '16:00', delays: 50 },
-  { hour: '17:00', delays: 55 },
-  { hour: '18:00', delays: 60 },
-  { hour: '19:00', delays: 50 },
-  { hour: '20:00', delays: 40 },
-  { hour: '21:00', delays: 30 },
-  { hour: '22:00', delays: 20 },
-  { hour: '23:00', delays: 10 },
+  { hour: '00:00', delays: 5 }, { hour: '01:00', delays: 3 }, { hour: '02:00', delays: 2 },
+  { hour: '03:00', delays: 1 }, { hour: '04:00', delays: 2 }, { hour: '05:00', delays: 4 },
+  { hour: '06:00', delays: 10 }, { hour: '07:00', delays: 15 }, { hour: '08:00', delays: 25 },
+  { hour: '09:00', delays: 22 }, { hour: '10:00', delays: 28 }, { hour: '11:00', delays: 30 },
+  { hour: '12:00', delays: 35 }, { hour: '13:00', delays: 32 }, { hour: '14:00', delays: 40 },
+  { hour: '15:00', delays: 45 }, { hour: '16:00', delays: 50 }, { hour: '17:00', delays: 55 },
+  { hour: '18:00', delays: 60 }, { hour: '19:00', delays: 50 }, { hour: '20:00', delays: 40 },
+  { hour: '21:00', delays: 30 }, { hour: '22:00', delays: 20 }, { hour: '23:00', delays: 10 },
 ];
 
 export const featureImportanceData = {
     featureImportances: {
-        "Departure Difference": 0.35,
-        "Airport Congestion": 0.25,
-        "Weather Conditions": 0.2,
-        "Departure Time": 0.1,
-        "Flight Duration": 0.05,
-        "Distance": 0.03,
-        "Airline": 0.02
+        "Departure Difference": 0.35, "Airport Congestion": 0.25,
+        "Weather Conditions": 0.2, "Departure Time": 0.1,
+        "Flight Duration": 0.05, "Distance": 0.03, "Airline": 0.02
     }
 };
-
 
 export const travelTimeData = {
   labels: ['Travel to Airport', 'Security Wait', 'Walk to Gate'],
@@ -78,8 +57,6 @@ export const gateCongestionData = [
   { gate: 'A1', congestion: 0.8 }, { gate: 'A2', congestion: 0.6 }, { gate: 'A3', congestion: 0.3 },
   { gate: 'A4', congestion: 0.9 }, { gate: 'A5', congestion: 0.5 }, { gate: 'A6', congestion: 0.2 },
   { gate: 'B1', congestion: 0.4 }, { gate: 'B2', congestion: 0.7 }, { gate: 'B3', congestion: 0.5 },
-  { gate: 'B4', congestion: 0.3 }, { gate: 'B5', congestion: 0.8 }, { gate: 'B6', congestion: 0.6 },
-  { gate: 'C1', congestion: 0.2 }, { gate: 'C2', congestion: 0.5 }, { gate: 'C3', congestion: 0.7 },
 ];
 
 export const flightRecommendations = [
@@ -102,8 +79,30 @@ export const securityQueueData = [
 
 export const luggageData = {
     tag: 'UA-123456',
-    status: 'Loaded on Plane',
-    lostProbability: 2,
+    status: 'Checked In',
+    lostProbability: 2.5,
     baggageDelayProbability: 15,
-    progress: 50,
+    progress: 10,
+};
+
+export const foodCourtCrowdData = [
+    { name: 'Starbucks', crowd: 0.8, wait: 15 },
+    { name: 'McDonalds', crowd: 0.9, wait: 20 },
+    { name: 'SaladBar', crowd: 0.4, wait: 5 },
+    { name: 'PizzaHut', crowd: 0.7, wait: 12 },
+];
+
+export const seatComfortData = {
+    turbulenceForecast: 'Light to Moderate',
+    recommendedSeats: ['12A', '14F', '15A', '20C']
+};
+
+export const runwayTrafficData = {
+    departures: 5,
+    arrivals: 3,
+};
+
+export const ticketPriceData = {
+    currentPrice: 450.25,
+    prediction: 435.50
 };

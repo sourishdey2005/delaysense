@@ -2,7 +2,8 @@
 
 import { Bar, BarChart as RechartsBarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, Pie, PieChart, Cell } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { gateCongestionData, securityQueueData } from '@/lib/data';
+import { gateCongestionData, securityQueueData, foodCourtCrowdData } from '@/lib/data';
+import { useState, useEffect } from 'react';
 
 const chartConfig = {
   congestion: {
@@ -21,6 +22,10 @@ const chartConfig = {
     label: 'Remaining',
     color: 'hsl(var(--muted))',
   },
+  crowd: {
+    label: 'Crowd Level',
+    color: 'hsl(var(--chart-3))'
+  }
 };
 
 export function GateCongestionChart() {
@@ -85,4 +90,32 @@ export function BaggageDelayChart({ percentage }: { percentage: number }) {
       </ChartContainer>
     </div>
   );
+}
+
+export function FoodCourtCrowdChart() {
+    const [liveFoodData, setLiveFoodData] = useState(foodCourtCrowdData);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setLiveFoodData(prevData => prevData.map(item => ({
+                ...item,
+                crowd: Math.max(0.1, Math.min(1.0, item.crowd + (Math.random() - 0.5) * 0.2))
+            })));
+        }, 4000);
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div className="h-[200px]">
+            <ChartContainer config={chartConfig} className="w-full h-full">
+                <RechartsBarChart data={liveFoodData} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
+                    <CartesianGrid vertical={false} />
+                    <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} fontSize={12} />
+                    <YAxis tickLine={false} axisLine={false} fontSize={12} domain={[0, 1]} />
+                    <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                    <Bar dataKey="crowd" fill="var(--color-crowd)" radius={4} />
+                </RechartsBarChart>
+            </ChartContainer>
+        </div>
+    );
 }
