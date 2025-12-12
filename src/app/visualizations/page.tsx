@@ -11,6 +11,7 @@ import {
     GateCrowdingBubble,
     LuggageDelayPie
 } from './charts';
+import { ClientOnly } from '@/components/ui/client-only';
 
 export default function VisualizationsPage() {
   return (
@@ -26,7 +27,9 @@ export default function VisualizationsPage() {
             <CardDescription>Real-time delay risk for your flight (AI101).</CardDescription>
           </CardHeader>
           <CardContent>
-            <FlightDelayGauge />
+            <ClientOnly>
+                <FlightDelayGauge />
+            </ClientOnly>
           </CardContent>
         </Card>
         <Card>
@@ -35,7 +38,9 @@ export default function VisualizationsPage() {
             <CardDescription>Delayed vs. on-time flights for a selected airline.</CardDescription>
           </CardHeader>
           <CardContent>
-            <AirlinePerformancePie />
+            <ClientOnly>
+                <AirlinePerformancePie />
+            </ClientOnly>
           </CardContent>
         </Card>
         <Card>
@@ -44,7 +49,57 @@ export default function VisualizationsPage() {
             <CardDescription>Congestion risk at the selected airport (DEL).</CardDescription>
           </CardHeader>
           <CardContent>
-            <AirportCongestionDonut />
+            <ClientOnly>
+                <AirportCongestionDonut />
+            </ClientOnly>
+          </CardContent>
+        </Card>
+        
+         <Card className="lg:col-span-3">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2"><Thermometer className="text-primary"/>Hourly Delay Heatmap</CardTitle>
+            <CardDescription>Hourly delay patterns throughout the day at the airport.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ClientOnly>
+                <HourlyDelayHeatmap />
+            </ClientOnly>
+          </CardContent>
+        </Card>
+
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2"><Map className="text-primary"/>Origin to Destination Delay Map</CardTitle>
+            <CardDescription>Simulated delay intensity on major routes across India.</CardDescription>
+          </CardHeader>
+          <CardContent className="h-[400px] flex items-center justify-center">
+            <ClientOnly>
+                <RouteDelayMap />
+            </ClientOnly>
+          </CardContent>
+        </Card>
+
+        <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2"><BaggageClaim className="text-primary"/>Luggage Delay Probability</CardTitle>
+                <CardDescription>The chance of your luggage being delayed.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ClientOnly>
+                    <LuggageDelayPie />
+                </ClientOnly>
+            </CardContent>
+        </Card>
+
+        <Card className="lg:col-span-3">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2"><Users className="text-primary"/>Gate Crowding Real-Time Graph</CardTitle>
+            <CardDescription>Live visualization of passenger density at various gates.</CardDescription>
+          </CardHeader>
+          <CardContent className="h-[300px]">
+            <ClientOnly>
+                <GateCrowdingBubble />
+            </ClientOnly>
           </CardContent>
         </Card>
         
@@ -54,49 +109,12 @@ export default function VisualizationsPage() {
             <CardDescription>How different weather conditions affect delay likelihood.</CardDescription>
           </CardHeader>
           <CardContent>
-            <WeatherImpactBar />
-          </CardContent>
-        </Card>
-        
-        <Card className="lg:col-span-3">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Thermometer className="text-primary"/>Hourly Delay Heatmap</CardTitle>
-            <CardDescription>Hourly delay patterns throughout the day at the airport.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <HourlyDelayHeatmap />
-          </CardContent>
-        </Card>
-        
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Map className="text-primary"/>Origin to Destination Delay Map</CardTitle>
-            <CardDescription>Simulated delay intensity on major routes across India.</CardDescription>
-          </CardHeader>
-          <CardContent className="h-[400px] flex items-center justify-center">
-            <RouteDelayMap />
-          </CardContent>
-        </Card>
-        
-        <Card className="lg:col-span-1">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2"><BaggageClaim className="text-primary"/>Luggage Delay Probability</CardTitle>
-            <CardDescription>The chance of your luggage being delayed.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <LuggageDelayPie />
+            <ClientOnly>
+                <WeatherImpactBar />
+            </ClientOnly>
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-3">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Users className="text-primary"/>Gate Crowding Real-Time Graph</CardTitle>
-            <CardDescription>Live visualization of passenger density at various gates.</CardDescription>
-          </CardHeader>
-          <CardContent className="h-[300px]">
-            <GateCrowdingBubble />
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
