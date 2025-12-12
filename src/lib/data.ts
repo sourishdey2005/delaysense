@@ -1,3 +1,4 @@
+
 export const airlines = [
   'Delta', 'American', 'United', 'Southwest', 'Alaska', 'JetBlue', 'Spirit', 'Frontier'
 ];
@@ -51,7 +52,6 @@ export const delayByHourData = [
   { hour: '23:00', delays: 10 },
 ];
 
-// Replaced feature importance data to remove special characters causing encoding errors.
 export const featureImportanceData = {
   featureImportances: {
     'Departure Difference': 0.35,
@@ -63,3 +63,20 @@ export const featureImportanceData = {
     'Airline': 0.02,
   }
 };
+
+export const travelTimeData = {
+  labels: ['Travel to Airport', 'Security Wait', 'Walk to Gate'],
+  times: [
+    { label: 'Travel to Airport', time: 35 },
+    { label: 'Security Wait', time: 20 },
+    { label: 'Walk to Gate', time: 10 },
+  ]
+};
+
+export const gateCongestionData = [
+  { gate: 'A1', congestion: 0.8 }, { gate: 'A2', congestion: 0.6 }, { gate: 'A3', congestion: 0.3 },
+  { gate: 'A4', congestion: 0.9 }, { gate: 'A5', congestion: 0.5 }, { gate: 'A6', congestion: 0.2 },
+  { gate: 'B1', congestion: 0.4 }, { gate: 'B2', congestion: 0.7 }, { gate: 'B3', congestion: 0.5 },
+  { gate: 'B4', congestion: 0.3 }, { gate: 'B5', congestion: 0.8 }, { gate: 'B6', congestion: 0.6 },
+  { gate: 'C1', congestion: 0.2 }, { gate: 'C2', congestion: 0.5 }, { gate: 'C3', congestion: 0.7 },
+];
