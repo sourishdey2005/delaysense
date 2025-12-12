@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, BarChart, Compass, PlaneTakeoff } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { TicketScanner } from '@/components/ticket-scanner/ticket-scanner';
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find(img => img.id === 'home-hero');
@@ -30,18 +31,14 @@ export default function Home() {
           <p className="mt-4 text-lg text-muted-foreground max-w-lg">
             Leverage machine learning to predict flight delays with unparalleled accuracy. DelaySense is your co-pilot for smarter airline operations.
           </p>
-          <div className="mt-8 flex gap-4">
+          <div className="mt-8 flex gap-4 flex-wrap">
             <Link href="/predict">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 Start Predicting
                 <ArrowRight className="ml-2" />
               </Button>
             </Link>
-            <Link href="/insights">
-              <Button size="lg" variant="outline">
-                View Insights
-              </Button>
-            </Link>
+            <TicketScanner />
           </div>
         </div>
       </div>
