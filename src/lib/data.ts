@@ -176,3 +176,36 @@ export const travelInsuranceData = {
         planName: 'SafeTravel Plus'
     }
 }
+
+// New data for visualizations page
+export const airlinePerformanceData = [
+    { name: 'On-Time', value: 82, color: 'hsl(var(--chart-2))' },
+    { name: 'Delayed', value: 18, color: 'hsl(var(--destructive))' },
+]
+
+export const weatherImpactData = [
+    { name: 'Clear', delay: 5 },
+    { name: 'Cloudy', delay: 8 },
+    { name: 'Rain', delay: 15 },
+    { name: 'Fog', delay: 25 },
+    { name: 'Storm', delay: 40 },
+]
+
+export const hourlyHeatmapData = Array.from({ length: 24 }, (_, i) => ({
+  hour: `${String(i).padStart(2, '0')}:00`,
+  value: Math.floor(Math.random() * 100),
+}));
+
+export const airportCongestionData = [
+    { name: 'Low', value: 40, color: 'hsl(var(--chart-2))' },
+    { name: 'Medium', value: 35, color: 'hsl(var(--chart-3))' },
+    { name: 'High', value: 25, color: 'hsl(var(--destructive))' },
+];
+
+export const gateCrowdingData = Array.from({length: 12}, (_, i) => ({
+    id: `G${i + 1}`,
+    x: Math.random() * 90 + 5,
+    y: Math.random() * 80 + 10,
+    size: Math.random() * 30 + 10,
+    people: Math.floor(Math.random() * 100) + 10,
+}));
