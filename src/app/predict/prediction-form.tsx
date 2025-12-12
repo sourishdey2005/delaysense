@@ -23,13 +23,17 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Loader2, PlaneTakeoff, Clock, AlertTriangle } from 'lucide-react';
-import { airlines, airports, weatherConditions, airportCongestionLevels } from '@/lib/data';
+import { airlines, airports, weatherConditions, airportCongestionLevels, aircraftTypes, daysOfWeek, months } from '@/lib/data';
 
 const formSchema = z.object({
   airline: z.string().min(1, 'Airline is required.'),
+  aircraftType: z.string().min(1, 'Aircraft type is required.'),
+  dayOfWeek: z.string().min(1, 'Day of week is required.'),
+  month: z.string().min(1, 'Month is required.'),
   flightDuration: z.coerce.number().min(1, 'Duration must be positive.'),
   departureTime: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Invalid time format (HH:MM).'),
   departureDifference: z.coerce.number(),
+  previousLegDelay: z.coerce.number(),
   weatherConditions: z.string().min(1, 'Weather is required.'),
   airportCongestion: z.string().min(1, 'Congestion level is required.'),
   distance: z.coerce.number().min(1, 'Distance must be positive.'),
@@ -49,15 +53,19 @@ export function PredictionForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      airline: '',
+      airline: 'Vistara',
+      aircraftType: 'A320',
+      dayOfWeek: 'Monday',
+      month: 'October',
       flightDuration: 120,
       departureTime: '14:30',
       departureDifference: 0,
-      weatherConditions: '',
-      airportCongestion: '',
+      previousLegDelay: 0,
+      weatherConditions: 'Clear',
+      airportCongestion: 'Medium',
       distance: 800,
-      originAirport: '',
-      destinationAirport: '',
+      originAirport: 'DEL',
+      destinationAirport: 'BOM',
     },
   });
 
@@ -68,7 +76,16 @@ export function PredictionForm() {
     // Simulate ML model prediction
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    const probability = Math.random();
+    // A more "realistic" probability calculation based on inputs
+    let score = 0;
+    if (values.departureDifference > 10) score += 0.3;
+    if (values.previousLegDelay > 15) score += 0.2;
+    if (values.airportCongestion === 'High') score += 0.2;
+    if (['Storm', 'Fog', 'Snow'].includes(values.weatherConditions)) score += 0.25;
+    if (['Friday', 'Sunday'].includes(values.dayOfWeek)) score += 0.05;
+    
+    const probability = Math.min(0.95, score + Math.random() * 0.2);
+
     setResult({
       status: probability > 0.4 ? 'Delayed' : 'On Time',
       probability: probability > 0.4 ? Math.floor(probability * 100) : Math.floor((1-probability) * 100),
@@ -80,7 +97,6 @@ export function PredictionForm() {
   const ResultAnimation = ({ isDelayed }: { isDelayed: boolean }) => (
     <div className="w-48 h-48 mx-auto my-4 bg-muted/20 rounded-lg flex items-center justify-center">
        <span className="text-muted-foreground text-sm">
-         {/* Placeholder for Lottie animation */}
          {isDelayed ? <AlertTriangle className="size-24 text-destructive" /> : <PlaneTakeoff className="size-24 text-chart-2" />}
        </span>
     </div>
@@ -91,7 +107,7 @@ export function PredictionForm() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-3 gap-6">
               <FormField control={form.control} name="airline" render={({ field }) => (
                 <FormItem>
                   <FormLabel>Airline</FormLabel>
@@ -100,6 +116,42 @@ export function PredictionForm() {
                       <SelectTrigger><SelectValue placeholder="Select an airline" /></SelectTrigger>
                     </FormControl>
                     <SelectContent>{airlines.map(a => <SelectItem key={a} value={a}>{a}</SelectItem>)}</SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+               <FormField control={form.control} name="aircraftType" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Aircraft Type</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger><SelectValue placeholder="Select aircraft type" /></SelectTrigger>
+                    </FormControl>
+                    <SelectContent>{aircraftTypes.map(a => <SelectItem key={a} value={a}>{a}</SelectItem>)}</SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField control={form.control} name="dayOfWeek" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Day of Week</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger><SelectValue placeholder="Select day" /></SelectTrigger>
+                    </FormControl>
+                    <SelectContent>{daysOfWeek.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}</SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField control={form.control} name="month" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Month</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger><SelectValue placeholder="Select month" /></SelectTrigger>
+                    </FormControl>
+                    <SelectContent>{months.map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}</SelectContent>
                   </Select>
                   <FormMessage />
                 </FormItem>
@@ -121,6 +173,13 @@ export function PredictionForm() {
               <FormField control={form.control} name="departureDifference" render={({ field }) => (
                 <FormItem>
                   <FormLabel>Departure Difference (mins)</FormLabel>
+                  <FormControl><Input type="number" {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField control={form.control} name="previousLegDelay" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Previous Leg Delay (mins)</FormLabel>
                   <FormControl><Input type="number" {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
@@ -149,7 +208,7 @@ export function PredictionForm() {
                   <FormMessage />
                 </FormItem>
               )} />
-              <FormField control={form.control} name="distance" render={({ field }) => (
+               <FormField control={form.control} name="distance" render={({ field }) => (
                 <FormItem>
                   <FormLabel>Distance (km)</FormLabel>
                   <FormControl><Input type="number" {...field} /></FormControl>

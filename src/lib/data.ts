@@ -20,6 +20,19 @@ export const airportCongestionLevels = [
   'Low', 'Medium', 'High'
 ];
 
+export const aircraftTypes = [
+    'A320', 'B737', 'B787', 'A350', 'B777', 'A380', 'Q400'
+];
+
+export const daysOfWeek = [
+    'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
+];
+
+export const months = [
+    'January', 'February', 'March', 'April', 'May', 'June', 
+    'July', 'August', 'September', 'October', 'November', 'December'
+];
+
 export const airportDelayData = [
   { airport: 'DEL', delays: 130 },
   { airport: 'BOM', delays: 125 },
