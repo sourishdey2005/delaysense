@@ -29,43 +29,36 @@ export function FlightDelayGauge() {
     return () => clearInterval(interval);
   }, []);
 
-  const rotation = (probability / 100) * 180 - 90;
   const color = probability > 60 ? 'text-destructive' : probability > 30 ? 'text-chart-3' : 'text-chart-2';
-  const radius = 80;
-  const circumference = Math.PI * radius;
-  const strokeDashoffset = circumference * (1 - probability / 100 / 2);
-
+  
   return (
     <div className="w-full h-48 flex flex-col items-center justify-center relative">
-      <svg className="w-52 h-28" viewBox="0 0 200 100">
-        {/* Background arc */}
-        <path
-          d="M 20 100 A 80 80 0 0 1 180 100"
-          fill="none"
-          stroke="hsl(var(--muted))"
-          strokeWidth="20"
-          strokeLinecap="round"
-        />
-        {/* Foreground arc */}
-         <defs>
-          <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="hsl(var(--chart-2))" />
-            <stop offset="50%" stopColor="hsl(var(--chart-3))" />
-            <stop offset="100%" stopColor="hsl(var(--destructive))" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M 20 100 A 80 80 0 0 1 180 100"
-          fill="none"
-          stroke="url(#gaugeGradient)"
-          strokeWidth="20"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          className="transition-all duration-500"
-        />
-      </svg>
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center">
+        <svg viewBox="0 0 120 120" className="w-full h-full">
+            <defs>
+                <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="hsl(var(--chart-2))" />
+                    <stop offset="50%" stopColor="hsl(var(--chart-3))" />
+                    <stop offset="100%" stopColor="hsl(var(--destructive))" />
+                </linearGradient>
+            </defs>
+            <path
+                d="M 20 90 A 40 40 0 1 1 100 90"
+                fill="none"
+                stroke="hsl(var(--muted))"
+                strokeWidth="12"
+                strokeLinecap="round"
+            />
+            <path
+                d="M 20 90 A 40 40 0 1 1 100 90"
+                fill="none"
+                stroke="url(#gaugeGradient)"
+                strokeWidth="12"
+                strokeLinecap="round"
+                strokeDasharray={`${(probability / 100) * Math.PI * 80}, ${Math.PI * 80}`}
+                className="transition-all duration-500"
+            />
+        </svg>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
         <p className={`text-5xl font-bold font-headline transition-colors ${color}`}>{probability}%</p>
         <p className="text-center text-muted-foreground text-sm -mt-1">Delay Risk</p>
       </div>
@@ -314,20 +307,21 @@ export function LuggageDelayPie() {
   }, []);
 
   return (
-    <div className="w-full h-48">
+    <div className="w-full h-48 relative">
       <ChartContainer config={chartConfigPie} className="mx-auto aspect-square w-full max-w-[250px]">
         <PieChart>
           <ChartTooltip cursor={true} content={<ChartTooltipContent hideLabel />} />
           <Pie data={data} dataKey="value" nameKey="name" innerRadius={50} outerRadius={70} paddingAngle={2}>
             {data.map((entry) => <Cell key={entry.name} fill={entry.color} />)}
           </Pie>
-           <Legend content={({ payload }) => (
-            <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" className="text-2xl font-bold fill-foreground">
-                {payload?.find(p => p.value === 'Delayed')?.payload.value}%
-            </text>
-        )} />
         </PieChart>
       </ChartContainer>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <p className="text-2xl font-bold text-foreground">
+            {data.find(p => p.name === 'Delayed')?.value}%
+        </p>
+      </div>
     </div>
   );
 }
+
