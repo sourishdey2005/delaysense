@@ -87,10 +87,12 @@ export function SidebarNav() {
                     Logout
                 </Button>
             ) : (
-                <Link href="/login" asChild>
-                    <Button className="w-full">
+                <Link href="/login" passHref>
+                    <Button asChild className="w-full">
+                      <div>
                         <LogIn className="mr-2" />
                         Login
+                      </div>
                     </Button>
                 </Link>
             )}
