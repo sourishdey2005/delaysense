@@ -6,7 +6,7 @@ import { Bar, BarChart as RechartsBarChart, Pie, PieChart, Cell, ResponsiveConta
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { airlinePerformanceData, weatherImpactData, hourlyHeatmapData, airportCongestionData, gateCrowdingData, luggageData } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 
 const chartConfigBar = {
@@ -24,48 +24,33 @@ export function FlightDelayGauge() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setProbability(Math.floor(Math.random() * 80) + 10);
+      setProbability(Math.floor(Math.random() * 90) + 10);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
 
-  const color = probability > 60 ? 'text-destructive' : probability > 30 ? 'text-chart-3' : 'text-chart-2';
-  const rotation = -90 + (probability / 100) * 180;
+  const gaugeData = [
+    { name: 'risk', value: probability, fill: probability > 75 ? 'hsl(var(--destructive))' : probability > 40 ? 'hsl(var(--chart-3))' : 'hsl(var(--chart-2))' },
+    { name: 'remaining', value: 100 - probability, fill: 'hsl(var(--muted))' }
+  ];
+
+  const color = probability > 75 ? 'text-destructive' : probability > 40 ? 'text-chart-3' : 'text-chart-2';
   
   return (
-    <div className="w-full h-48 flex flex-col items-center justify-center relative">
-      <svg viewBox="0 0 120 70" className="w-full h-auto">
-        <defs>
-          <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="hsl(var(--chart-2))" />
-            <stop offset="50%" stopColor="hsl(var(--chart-3))" />
-            <stop offset="100%" stopColor="hsl(var(--destructive))" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M 10 60 A 50 50 0 0 1 110 60"
-          fill="none"
-          stroke="hsl(var(--muted))"
-          strokeWidth="12"
-          strokeLinecap="round"
-        />
-        <path
-          d="M 10 60 A 50 50 0 0 1 110 60"
-          fill="none"
-          stroke="url(#gaugeGradient)"
-          strokeWidth="12"
-          strokeLinecap="round"
-        />
-        {/* Needle */}
-        <g transform={`translate(60, 60) rotate(${rotation})`}>
-            <line x1="0" y1="0" x2="0" y2="-45" stroke="hsl(var(--foreground))" strokeWidth="2" />
-            <circle cx="0" cy="0" r="4" fill="hsl(var(--foreground))" />
-        </g>
-      </svg>
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center">
-        <p className={`text-5xl font-bold font-headline transition-colors ${color}`}>{probability}%</p>
-        <p className="text-center text-muted-foreground text-sm -mt-1">Delay Risk</p>
-      </div>
+     <div className="w-full h-48 relative">
+        <ChartContainer config={{}} className="w-full h-full">
+            <PieChart startAngle={180} endAngle={0} innerRadius={60} outerRadius={80}>
+                <Pie data={gaugeData} dataKey="value" stroke="none">
+                    {gaugeData.map((entry) => (
+                        <Cell key={`cell-${entry.name}`} fill={entry.fill} />
+                    ))}
+                </Pie>
+            </PieChart>
+        </ChartContainer>
+         <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+            <p className={`text-5xl font-bold font-headline transition-colors ${color}`}>{probability}%</p>
+            <p className="text-muted-foreground text-sm">Delay Risk</p>
+        </div>
     </div>
   );
 }
@@ -328,5 +313,7 @@ export function LuggageDelayPie() {
     </div>
   );
 }
+
+    
 
     
