@@ -1,10 +1,12 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Bar, BarChart as RechartsBarChart, Pie, PieChart, Cell, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { Bar, BarChart as RechartsBarChart, Pie, PieChart, Cell, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Legend } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { airlinePerformanceData, weatherImpactData, hourlyHeatmapData, airportCongestionData, gateCrowdingData } from '@/lib/data';
 import { cn } from '@/lib/utils';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 
 const chartConfigBar = {
