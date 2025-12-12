@@ -1,14 +1,9 @@
 import React from 'react';
-import { BarChart as ChartIcon, Clock } from "lucide-react";
+import { BarChart as ChartIcon, Clock, Lightbulb } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { AirportDelayChart, DelayByHourChart, FeatureImportanceChart } from './charts';
-import { featureImportanceData } from '@/lib/data';
-import { explainFeatureImportance } from '@/ai/flows/explain-feature-importance';
-import { FeatureExplanation, FeatureExplanationSkeleton } from './feature-explanation';
 
 export default function InsightsPage() {
-  const explanationPromise = explainFeatureImportance(featureImportanceData);
-
   return (
     <div className="flex-1 space-y-8 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
@@ -26,9 +21,12 @@ export default function InsightsPage() {
           </CardContent>
         </div>
         <div className="p-6">
-           <React.Suspense fallback={<FeatureExplanationSkeleton />}>
-             <FeatureExplanation promise={explanationPromise} />
-           </React.Suspense>
+          <div className="p-4 rounded-lg bg-primary/10 border border-primary/20 space-y-2">
+            <h4 className="font-semibold flex items-center gap-2"><Lightbulb className="text-primary" /> Static Explanation</h4>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              The most influential factor in predicting flight delays is the 'Departure Difference', which is the difference between scheduled and actual departure time. This is because initial delays have a strong cascading effect on the system. 'Airport Congestion' and adverse 'Weather Conditions' are also significant factors, as they directly impact airport capacity and operational feasibility.
+            </p>
+          </div>
         </div>
       </Card>
 
