@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Gauge, PieChart as PieIcon, Thermometer, Cloudy, Donut, Map, Users, Case } from 'lucide-react';
+import { Gauge, PieChart as PieIcon, Thermometer, Cloudy, Donut, Map, Users, BaggageClaim } from 'lucide-react';
 import { 
     FlightDelayGauge, 
     AirlinePerformancePie,
@@ -70,7 +70,7 @@ export default function VisualizationsPage() {
         
         <Card className="lg:col-span-1">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Case className="text-primary"/>Luggage Delay Probability</CardTitle>
+            <CardTitle className="flex items-center gap-2"><BaggageClaim className="text-primary"/>Luggage Delay Probability</CardTitle>
             <CardDescription>The chance of your luggage being delayed.</CardDescription>
           </CardHeader>
           <CardContent>
