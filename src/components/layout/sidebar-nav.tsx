@@ -1,8 +1,8 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Home, Compass, BarChart, Info, Zap } from 'lucide-react';
+import { Home, Compass, BarChart, Info, Zap, LogIn, LogOut, LayoutDashboard } from 'lucide-react';
 import {
   SidebarHeader,
   SidebarContent,
@@ -14,16 +14,36 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
+import { useAuth } from '@/hooks/use-auth';
 
-const navItems = [
+const baseNavItems = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/predict', label: 'Predict', icon: Compass },
   { href: '/insights', label: 'Insights', icon: BarChart },
   { href: '/about', label: 'About', icon: Info },
 ];
 
+const passengerDashboard = { href: '/passenger-dashboard', label: 'Dashboard', icon: LayoutDashboard };
+const airlineDashboard = { href: '/airline-dashboard', label: 'Dashboard', icon: LayoutDashboard };
+const govDashboard = { href: '/government-dashboard', label: 'Dashboard', icon: LayoutDashboard };
+
+
 export function SidebarNav() {
   const pathname = usePathname();
+  const { user, logout } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
+
+  const navItems = [...baseNavItems];
+  if (user) {
+      if(user.role === 'passenger') navItems.splice(1, 0, passengerDashboard);
+      if(user.role === 'airline') navItems.splice(1, 0, airlineDashboard);
+      if(user.role === 'government') navItems.splice(1, 0, govDashboard);
+  }
 
   return (
     <>
@@ -59,6 +79,22 @@ export function SidebarNav() {
       </SidebarContent>
 
       <SidebarFooter>
+        <Separator className="my-2" />
+        <div className="p-2">
+            {user ? (
+                 <Button onClick={handleLogout} variant="outline" className="w-full">
+                    <LogOut className="mr-2" />
+                    Logout
+                </Button>
+            ) : (
+                <Link href="/login" legacyBehavior>
+                    <Button className="w-full">
+                        <LogIn className="mr-2" />
+                        Login
+                    </Button>
+                </Link>
+            )}
+        </div>
         <Separator className="my-2" />
         <div className="p-2">
           <Link href="/predict">
