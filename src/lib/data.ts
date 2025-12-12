@@ -53,16 +53,17 @@ export const delayByHourData = [
 ];
 
 export const featureImportanceData = {
-  featureImportances: {
-    'Departure Difference': 0.35,
-    'Airport Congestion': 0.25,
-    'Weather Conditions': 0.20,
-    'Departure Time': 0.10,
-    'Flight Duration': 0.05,
-    'Distance': 0.03,
-    'Airline': 0.02,
-  }
+    featureImportances: {
+        'Departure Difference': 0.35,
+        'Airport Congestion': 0.25,
+        'Weather Conditions': 0.2,
+        'Departure Time': 0.1,
+        'Flight Duration': 0.05,
+        Distance: 0.03,
+        Airline: 0.02
+    }
 };
+
 
 export const travelTimeData = {
   labels: ['Travel to Airport', 'Security Wait', 'Walk to Gate'],
@@ -80,3 +81,31 @@ export const gateCongestionData = [
   { gate: 'B4', congestion: 0.3 }, { gate: 'B5', congestion: 0.8 }, { gate: 'B6', congestion: 0.6 },
   { gate: 'C1', congestion: 0.2 }, { gate: 'C2', congestion: 0.5 }, { gate: 'C3', congestion: 0.7 },
 ];
+
+export const flightRecommendations = [
+    { id: 1, airline: 'Delta', flightNumber: 'DL234', destination: 'LAX', departs: '10:00 AM', onTimePercentage: 92, historicalDataPoints: 1500 },
+    { id: 2, airline: 'United', flightNumber: 'UA567', destination: 'LAX', departs: '10:30 AM', onTimePercentage: 85, historicalDataPoints: 1200 },
+    { id: 3, airline: 'JetBlue', flightNumber: 'JB890', destination: 'LAX', departs: '11:00 AM', onTimePercentage: 88, historicalDataPoints: 800 },
+];
+
+export const weatherAlerts = [
+    { id: 1, airport: 'JFK', alert: 'Thunderstorms expected around 4 PM. Potential for ground stops.', severity: 'High' },
+    { id: 2, airport: 'ORD', alert: 'Heavy fog reported. Visibility may cause delays.', severity: 'Medium' },
+];
+
+export const securityQueueData = [
+    { terminal: 'T1', waitTime: 15 },
+    { terminal: 'T2', waitTime: 25 },
+    { terminal: 'T3', waitTime: 10 },
+    { terminal: 'T4', waitTime: 40 },
+];
+
+export const luggageData = {
+    tag: 'UA-123456',
+    status: 'Loaded on Plane',
+    lostProbability: 2,
+    baggageDelayProbability: 15,
+    progress: 50,
+};
+
+    
