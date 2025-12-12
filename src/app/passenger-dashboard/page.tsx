@@ -3,12 +3,12 @@
 import withAuth from '@/components/auth/with-auth';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/hooks/use-auth';
-import { Plane, User, Bell, BriefcaseBusiness, ArrowRight, Car, Shield, PersonStanding, Clock, Map, CloudDrizzle, BaggageClaim, Search, Sparkles, AlertTriangle, Navigation, ShoppingBasket, Armchair, Waypoints, Timer, CalendarCheck, TrendingUp } from 'lucide-react';
+import { Plane, User, Bell, BriefcaseBusiness, ArrowRight, Car, Shield, PersonStanding, Clock, Map, CloudDrizzle, BaggageClaim, Search, Sparkles, AlertTriangle, Navigation, ShoppingBasket, Armchair, Waypoints, Timer, CalendarCheck, TrendingUp, Hotel, Accessibility, HeartPulse, Bus, Siren } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { GateCongestionChart, SecurityQueueChart, BaggageDelayChart, FoodCourtCrowdChart } from './charts';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { flightRecommendations, weatherAlerts, luggageData, seatComfortData, runwayTrafficData, ticketPriceData } from '@/lib/data';
+import { flightRecommendations, weatherAlerts, luggageData, seatComfortData, runwayTrafficData, ticketPriceData, loungeCrowdingData, specialNeedsAssistanceData } from '@/lib/data';
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Progress } from '@/components/ui/progress';
@@ -375,6 +375,63 @@ function PassengerDashboardPage() {
                        </div>
                     </CardContent>
                 </Card>
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><Hotel className="text-primary" /> Lounge Crowding</CardTitle>
+                        <CardDescription>Predicts how busy airport lounges will be.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        {loungeCrowdingData.map((lounge) => (
+                            <div key={lounge.name} className="flex justify-between items-center text-sm mb-2">
+                                <span className="text-muted-foreground">{lounge.name}</span>
+                                <span className={cn("font-semibold", lounge.level === "High" ? "text-destructive" : lounge.level === "Medium" ? "text-chart-3" : "text-chart-2")}>{lounge.level}</span>
+                            </div>
+                        ))}
+                    </CardContent>
+                </Card>
+                 <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><Accessibility className="text-primary" /> Special Assistance</CardTitle>
+                        <CardDescription>AI-powered assistance for special needs.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                        <p className="text-sm text-muted-foreground">Assistance Time:</p>
+                        <p className="text-2xl font-bold">{specialNeedsAssistanceData.predictedTime} min</p>
+                        <p className="text-xs text-muted-foreground mt-1">Assigned Helper: <span className="font-semibold">{specialNeedsAssistanceData.assignedHelper}</span></p>
+                    </CardContent>
+                </Card>
+                 <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><HeartPulse className="text-primary" /> Health Mode Planner</CardTitle>
+                        <CardDescription>Finds low-stress flight options.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="p-2 bg-muted/50 rounded-md text-xs">
+                            <p className="font-bold">Suggested: DL582 to SFO</p>
+                            <p>Later departure, lower cabin noise, less turbulence.</p>
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><Bus className="text-primary" /> Ground Travel</CardTitle>
+                        <CardDescription>Real-time ground travel predictions.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex justify-between text-sm"><span>Uber/Lyft:</span><span className="font-bold">15 min wait</span></div>
+                        <div className="flex justify-between text-sm"><span>Metro:</span><span className="font-bold">Next train in 8 min</span></div>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><Siren className="text-primary" /> Gate Change Alerts</CardTitle>
+                        <CardDescription>Predicts gate changes before they happen.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                        <p className="text-sm text-muted-foreground">High probability of change for UA789.</p>
+                        <p className="text-lg font-bold">Predicted new gate: <span className="text-primary">B14</span></p>
+                    </CardContent>
+                </Card>
             </div>
         </TabsContent>
       </Tabs>
@@ -383,3 +440,5 @@ function PassengerDashboardPage() {
 }
 
 export default withAuth(PassengerDashboardPage, ['passenger']);
+
+    

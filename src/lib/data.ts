@@ -134,3 +134,17 @@ export const airlinePunctualityData = [
     { airline: 'Southwest', score: 94.1, flights: 2400 },
     { airline: 'JetBlue', score: 89.5, flights: 780 },
 ];
+
+export const loungeCrowdingData = [
+    { name: 'Delta Sky Club', level: 'Medium' },
+    { name: 'AA Admirals Club', level: 'High' },
+    { name: 'The Centurion Lounge', level: 'High' },
+    { name: 'United Club', level: 'Low' },
+];
+
+export const specialNeedsAssistanceData = {
+    predictedTime: 25,
+    assignedHelper: 'John P.',
+};
+
+    
