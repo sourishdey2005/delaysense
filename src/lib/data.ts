@@ -54,13 +54,13 @@ export const delayByHourData = [
 
 export const featureImportanceData = {
     featureImportances: {
-        'Departure Difference': 0.35,
-        'Airport Congestion': 0.25,
-        'Weather Conditions': 0.2,
-        'Departure Time': 0.1,
-        'Flight Duration': 0.05,
-        'Distance': 0.03,
-        'Airline': 0.02
+        "Departure Difference": 0.35,
+        "Airport Congestion": 0.25,
+        "Weather Conditions": 0.2,
+        "Departure Time": 0.1,
+        "Flight Duration": 0.05,
+        "Distance": 0.03,
+        "Airline": 0.02
     }
 };
 
