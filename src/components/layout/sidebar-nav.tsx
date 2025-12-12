@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Home, Compass, BarChart, Info, Zap, LogIn, LogOut, LayoutDashboard } from 'lucide-react';
+import { Home, Compass, BarChart, Info, Zap, LogIn, LogOut, LayoutDashboard, Telescope } from 'lucide-react';
 import {
   SidebarHeader,
   SidebarContent,
@@ -20,6 +20,7 @@ const baseNavItems = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/predict', label: 'Predict', icon: Compass },
   { href: '/insights', label: 'Insights', icon: BarChart },
+  { href: '/analysis', label: 'Analysis', icon: Telescope },
   { href: '/about', label: 'About', icon: Info },
 ];
 

@@ -106,3 +106,31 @@ export const ticketPriceData = {
     currentPrice: 450.25,
     prediction: 435.50
 };
+
+export const passengerSentimentData = [
+    { name: 'Calm', value: 65 },
+    { name: 'Neutral', value: 25 },
+    { name: 'Anxious', value: 10 },
+];
+
+export const wifiSpeedData = [
+    { terminal: 'T1', speed: 75 },
+    { terminal: 'T2', speed: 40 },
+    { terminal: 'T3', speed: 90 },
+    { terminal: 'T4', speed: 25 },
+];
+
+export const checkinLoadData = [
+    { hour: '06:00', load: 15 }, { hour: '07:00', load: 25 }, { hour: '08:00', load: 30 },
+    { hour: '09:00', load: 20 }, { hour: '10:00', load: 18 }, { hour: '11:00', load: 22 },
+    { hour: '12:00', load: 28 }, { hour: '13:00', load: 35 }, { hour: '14:00', load: 40 },
+    { hour: '15:00', load: 30 }, { hour: '16:00', load: 25 }, { hour: '17:00', load: 32 },
+];
+
+export const airlinePunctualityData = [
+    { airline: 'Delta', score: 92.5, flights: 1203 },
+    { airline: 'United', score: 88.2, flights: 1105 },
+    { airline: 'American', score: 85.1, flights: 1300 },
+    { airline: 'Southwest', score: 94.1, flights: 2400 },
+    { airline: 'JetBlue', score: 89.5, flights: 780 },
+];
